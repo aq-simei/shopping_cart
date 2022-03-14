@@ -1,9 +1,5 @@
-function App() {
-  return (
-    <div className="App">
-      <h1>Initialize project</h1>
-    </div>
-  );
-}
+import { Store } from "./Components/Store";
 
-export default App;
+export function App() {
+  return <Store />;
+}
