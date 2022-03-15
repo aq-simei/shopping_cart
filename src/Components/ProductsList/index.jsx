@@ -5,7 +5,7 @@ export function ProductsList({products, addToCart}) {
     products.map((product)=>{
       return(
         <li key={product.id}>
-          <Product props={product} addToCart={addToCart}/>
+          <Product {...product} addToCart={addToCart}/>
         </li>        
       )
     })
