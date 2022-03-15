@@ -26,11 +26,6 @@ export function Store() {
   const [products, setProducts] = useState(initialProducts);
   const [cartItems, setCartItems] = useState([]);
   
-
-  const addToCart = (params) => {
-    console.log('Add to cart button is working')
-    setCartItems([...cartItems, params])
-  }
   return (
     <>
       <Button
@@ -41,8 +36,8 @@ export function Store() {
         name="Cart" 
         onClick={() => setShowComponents("Cart")} 
       />
-      {showComponents === "Products" && <ProductsList products={products} addToCart={addToCart}/>}
-      {showComponents === "Cart" && <Cart />}
+      {showComponents === "Products" && <ProductsList products={products} />}
+      {showComponents === "Cart" && <Cart items={cartItems}/>}
     </>
   );
 }
