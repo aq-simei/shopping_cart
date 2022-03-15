@@ -29,8 +29,8 @@ export function Store() {
   const [products, setProducts] = useState(initialProducts);
   const [cartItems, setCartItems] = useState([]);
   
-  const addToCart = () => {
-    console.log('Add To cart button is working')
+  const addToCart = (product) => {
+    setCartItems([...cartItems, product ]);
   }
   
   return (
