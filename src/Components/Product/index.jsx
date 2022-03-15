@@ -1,12 +1,11 @@
 import { Button } from "../Button"
 
-export function Product({props, addToCart}){
-  let {name, description} = props
+export function Product({name, description, addToCart}){
   return(
     <>
       <span>{name}</span>
       <span>{description}</span>
-      <Button name='Add to cart' product = {props} onClick={addToCart}/>
+      <Button name='Add to cart' {...product} onClick={addToCart}/>
     </>
   )
 }
