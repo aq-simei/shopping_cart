@@ -3,6 +3,9 @@ import { ProductsList } from "../ProductsList";
 import { Cart } from "../Cart";
 import { Button } from "../Button";
 
+const RENDER_PRODUCTS_STATE_KEY = 'Products';
+const RENDER_CART_STATE_KEY = 'Cart'
+
 const initialProducts = [
   {
     id: 1,
@@ -30,14 +33,14 @@ export function Store() {
     <>
       <Button
         name="Products"
-        onClick={() => setShowComponents("Products")}
+        onClick={() => setShowComponents(RENDER_PRODUCTS_STATE_KEY)}
       />
       <Button 
         name="Cart" 
-        onClick={() => setShowComponents("Cart")} 
+        onClick={() => setShowComponents(RENDER_CART_STATE_KEY)} 
       />
-      {showComponents === "Products" && <ProductsList products={products} />}
-      {showComponents === "Cart" && <Cart items={cartItems}/>}
+      {showComponents === RENDER_PRODUCTS_STATE_KEY && <ProductsList products={products} />}
+      {showComponents === RENDER_CART_STATE_KEY && <Cart items={cartItems}/>}
     </>
   );
 }
