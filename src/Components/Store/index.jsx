@@ -25,9 +25,13 @@ const initialProducts = [
 ]
 export function Store() {
 
-  const [showComponents, setShowComponents] = useState("");
+  const [showComponents, setShowComponents] = useState(RENDER_PRODUCTS_STATE_KEY);
   const [products, setProducts] = useState(initialProducts);
   const [cartItems, setCartItems] = useState([]);
+  
+  const addToCart = () => {
+    console.log('Add To cart button is working')
+  }
   
   return (
     <>
@@ -39,8 +43,8 @@ export function Store() {
         name="Cart" 
         onClick={() => setShowComponents(RENDER_CART_STATE_KEY)} 
       />
-      {showComponents === RENDER_PRODUCTS_STATE_KEY && <ProductsList products={products} />}
-      {showComponents === RENDER_CART_STATE_KEY && <Cart items={cartItems}/>}
+      {showComponents === RENDER_PRODUCTS_STATE_KEY && <ProductsList products={products} addToCart={addToCart}/>}
+      {showComponents === RENDER_CART_STATE_KEY && <Cart items={cartItems}  />}
     </>
   );
 }

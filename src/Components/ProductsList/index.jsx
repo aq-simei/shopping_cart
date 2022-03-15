@@ -1,14 +1,15 @@
-export function ProductsList({products}) {
+import { Product } from "../Product"
+export function ProductsList({products, addToCart}) {
   return (
-    <ul>
-    {products.map((product)=>{
+    <ul>{
+    products.map((product)=>{
       return(
         <li key={product.id}>
-          <span>{product.name}</span>
-          <span>{product.description}</span>
-        </li>
+          <Product {...product} addToCart={addToCart}/>
+        </li>        
       )
-    })}
-    </ul>
+    })
+  }
+  </ul>
   )
 }
