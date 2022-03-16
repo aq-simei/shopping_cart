@@ -37,13 +37,28 @@ describe ('<Product />', ()=>{
       const addToCart = jest.fn();
       render(<Product {...props} addToCart={addToCart}/>);
 
+      expect(addToCart).not.toHaveBeenCalled();
+
       userEvent.click(
         screen.getByRole('button', {
         name: /add to cart/i
       })
       );
-      expect(addToCart).toHaveBeenCalled();  
+      expect(addToCart).toHaveBeenCalledTimes(1);  
 
+    })
+    it('should use the {product} object as parameter', ()=>{
+      const addToCart = jest.fn();
+      render(<Product product={props.product} addToCart={addToCart}/>)
+      expect(addToCart).not.toHaveBeenCalled();
+
+      userEvent.click(
+        screen.getByRole('button', {
+        name: /add to cart/i
+      })
+      );
+
+      expect(addToCart).toHaveBeenCalledWith(props.product)
     })
 
   })

@@ -1,6 +1,6 @@
-export function Button({ name, onClick, product }) {
+export function Button({ name, onClick}) {
   return (
-    <button name={name} onClick={()=> onClick(product)} >
+    <button name={name} onClick={()=> onClick()} >
       {name}
     </button>
   );
