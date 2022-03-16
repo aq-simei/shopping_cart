@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ProductsList } from "../ProductsList";
 import { Cart } from "../Cart";
 import { Button } from "../Button";
@@ -23,16 +23,22 @@ const initialProducts = [
     description: 'R$0,50'
   }
 ]
+
 export function Store() {
 
   const [showComponents, setShowComponents] = useState(RENDER_PRODUCTS_STATE_KEY);
   const [products, setProducts] = useState(initialProducts);
   const [cartItems, setCartItems] = useState([]);
   
-  const addToCart = () => {
-    console.log('Add To cart button is working')
-  }
+  const addToCart = (product) => {
+
+  const selectedProduct = cartItems.find((currentProduct)=>currentProduct.id === product.id)
+  const isAlreadyOnTheList = Boolean(selectedProduct)
   
+   if (!isAlreadyOnTheList){
+  setCartItems([...cartItems, product ]);
+    }
+  }
   return (
     <>
       <Button

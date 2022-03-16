@@ -1,11 +1,12 @@
 import { Button } from "../Button"
 
-export function Product({name, description, addToCart}){
+export function Product({product, addToCart}){
+  const {name, description} = product
   return(
     <>
       <span>{name}</span>
       <span>{description}</span>
-      <Button name='Add to cart' onClick={addToCart}/>  
+      <Button name='Add to cart' onClick={()=>addToCart(product)}/>  
     </>
   )
 }

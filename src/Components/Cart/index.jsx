@@ -1,3 +1,17 @@
 export function Cart({items}) {
-    return <span>Your cart is empty</span>;
-  }
+  return (
+    <ul>{
+    items.map((item)=>{
+      return(
+        <li key={item.id}>
+          <span>{item.name}</span>
+          <span>{item.description}</span>
+        </li>
+
+      )
+    }
+    )}
+    </ul>
+  );
+}
+
