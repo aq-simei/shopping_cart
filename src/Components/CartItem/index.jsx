@@ -1,6 +1,6 @@
 import { Button } from "../Button";
 
-export const CartItem = ({ addedProduct, handleRemoveItemFromCart }) => {
+export const CartItem = ({ addedProduct, onHandleRemoveItem }) => {
   return (
     <li key={addedProduct.id}>
       <span>{addedProduct.name}</span>
