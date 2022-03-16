@@ -1,65 +1,67 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { Product } from '../Components/Product';
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { Product } from "../Components/Product";
 
-
-describe ('<Product />', ()=>{
-
+describe("<Product />", () => {
   const props = {
     product: {
-      id:1,
-      name:'TestName',
-      description:'TestDescription'
+      id: 1,
+      name: "TestName",
+      description: "TestDescription",
     },
-    addToCart: () => {}
-  }
+    onHandleAddToCart: () => {},
+  };
 
-  it("should render the product's name", ()=>{
-    render(<Product {...props}/>);
-    
+  it("should render the product's name", () => {
+    render(<Product {...props} />);
+
     expect(screen.getByText(/testname/i)).toBeInTheDocument();
-  })
-  it("should render the product's description", ()=>{
-    render(<Product {...props}/>);
+  });
+  it("should render the product's description", () => {
+    render(<Product {...props} />);
     expect(screen.getByText(/testdescription/i)).toBeInTheDocument();
-  })
+  });
 
-  it("should render a addToCart button", ()=>{
-    render(<Product {...props}/>);
+  it("should render a addToCart button", () => {
+    render(<Product {...props} />);
 
-    expect (screen.getByRole('button', {
-      name: /add to cart/i
-    })).toBeInTheDocument();
-  })
+    expect(
+      screen.getByRole("button", {
+        name: /add to cart/i,
+      })
+    ).toBeInTheDocument();
+  });
 
-  describe('When the addToCart button is clicked', ()=>{
-    it('should dispatch addToCart function', ()=>{
-      const addToCart = jest.fn();
-      render(<Product {...props} addToCart={addToCart}/>);
+  describe("When the addToCart button is clicked", () => {
+    it("should dispatch addToCart function", () => {
+      const onHandleAddToCart = jest.fn();
+      render(<Product {...props} onHandleAddToCart={onHandleAddToCart} />);
 
-      expect(addToCart).not.toHaveBeenCalled();
+      expect(onHandleAddToCart).not.toHaveBeenCalled();
 
       userEvent.click(
-        screen.getByRole('button', {
-        name: /add to cart/i
-      })
+        screen.getByRole("button", {
+          name: /add to cart/i,
+        })
       );
-      expect(addToCart).toHaveBeenCalledTimes(1);  
-
-    })
-    it('should use the {product} object as parameter', ()=>{
-      const addToCart = jest.fn();
-      render(<Product product={props.product} addToCart={addToCart}/>)
-      expect(addToCart).not.toHaveBeenCalled();
+      expect(onHandleAddToCart).toHaveBeenCalledTimes(1);
+    });
+    it("handleAddToCart should use the {product} object as parameter", () => {
+      const onHandleAddToCart = jest.fn();
+      render(
+        <Product
+          product={props.product}
+          onHandleAddToCart={onHandleAddToCart}
+        />
+      );
 
       userEvent.click(
-        screen.getByRole('button', {
-        name: /add to cart/i
-      })
+        screen.getByRole("button", {
+          name: /add to cart/i,
+        })
       );
 
-      expect(addToCart).toHaveBeenCalledWith(props.product)
-    })
-
-  })
-})
+      expect(onHandleAddToCart).toHaveBeenCalledWith(props.product);
+    });
+  });
+});

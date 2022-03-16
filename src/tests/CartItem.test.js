@@ -8,11 +8,11 @@ describe("<CartItem />", () => {
       name: "AddedToCartTestName",
       description: "AddedToCartDescription",
     },
-    handleRemoveItemFromCart: () => {},
+    onHandleRemoveItem: () => {},
   };
   it("should render the cart item's name", () => {
     render(<CartItem {...props} />);
-    screen.logTestingPlaygroundURL();
+
     expect(screen.getByText(/addedtocarttestname/i)).toBeInTheDocument();
   });
   it("should render the cart item's description", () => {
