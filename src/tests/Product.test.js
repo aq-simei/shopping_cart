@@ -50,7 +50,6 @@ describe ('<Product />', ()=>{
     it('should use the {product} object as parameter', ()=>{
       const addToCart = jest.fn();
       render(<Product product={props.product} addToCart={addToCart}/>)
-      expect(addToCart).not.toHaveBeenCalled();
 
       userEvent.click(
         screen.getByRole('button', {
@@ -60,6 +59,5 @@ describe ('<Product />', ()=>{
 
       expect(addToCart).toHaveBeenCalledWith(props.product)
     })
-
   })
 })
