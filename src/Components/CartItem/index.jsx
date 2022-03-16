@@ -1,11 +1,16 @@
 import { Button } from "../Button";
 
-export const CartItem = ({ addedProduct, onHandleRemoveItem }) => {
+export const CartItem = ({ productWithinCart, onHandleRemoveItem }) => {
   return (
-    <li key={addedProduct.id}>
-      <span>{addedProduct.name}</span>
-      <span>{addedProduct.description}</span>
-      <Button name="Remove from cart" onClick={() => {}} />
+    <li key={productWithinCart.id}>
+      <span>{productWithinCart.name}</span>
+      <span>{productWithinCart.description}</span>''
+      <Button
+        name="Remove from cart"
+        onClick={() => {
+          onHandleRemoveItem(productWithinCart);
+        }}
+      />
     </li>
   );
 };

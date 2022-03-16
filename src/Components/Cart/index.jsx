@@ -7,7 +7,7 @@ export function Cart({ items, onHandleRemoveItem }) {
         return (
           <CartItem
             key={item.id}
-            addedProduct={item}
+            productWithinCart={item}
             onHandleRemoveItem={onHandleRemoveItem}
           />
         );
