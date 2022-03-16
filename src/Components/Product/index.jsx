@@ -1,12 +1,12 @@
-import { Button } from "../Button"
+import { Button } from "../Button";
 
-export function Product({product, addToCart}){
-  const {name, description} = product
-  return(
+export function Product({ product, onHandleAddToCart }) {
+  const { name, description } = product;
+  return (
     <>
       <span>{name}</span>
       <span>{description}</span>
-      <Button name='Add to cart' onClick={()=>addToCart(product)}/>  
+      <Button name="Add to cart" onClick={() => onHandleAddToCart(product)} />
     </>
-  )
+  );
 }

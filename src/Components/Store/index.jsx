@@ -33,11 +33,13 @@ export function Store() {
 
   const handleRemoveItemFromCart = (product) => {
     const updateCartItems = cartItems.filter((item) => product.id !== item.id);
-    console.log(updateCartItems);
     setCartItems(updateCartItems);
   };
+  const onHandleRemoveItem = (params) => {
+    handleRemoveItemFromCart(params);
+  };
 
-  const addToCart = (product) => {
+  const handleAddToCart = (product) => {
     const selectedProduct = cartItems.find(
       (currentProduct) => currentProduct.id === product.id
     );
@@ -46,6 +48,10 @@ export function Store() {
     if (!isAlreadyOnTheList) {
       setCartItems([...cartItems, product]);
     }
+  };
+
+  const onHandleAddToCart = (params) => {
+    handleAddToCart(params);
   };
   return (
     <>
@@ -58,13 +64,13 @@ export function Store() {
         onClick={() => setShowComponents(RENDER_CART_STATE_KEY)}
       />
       {showComponents === RENDER_PRODUCTS_STATE_KEY && (
-        <ProductsList products={products} addToCart={addToCart} />
+        <ProductsList
+          products={products}
+          onHandleAddToCart={onHandleAddToCart}
+        />
       )}
       {showComponents === RENDER_CART_STATE_KEY && (
-        <Cart
-          items={cartItems}
-          handleRemoveItemFromCart={handleRemoveItemFromCart}
-        />
+        <Cart items={cartItems} onHandleRemoveItem={onHandleRemoveItem} />
       )}
     </>
   );
