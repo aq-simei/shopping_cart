@@ -3,54 +3,69 @@ import { ProductsList } from "../ProductsList";
 import { Cart } from "../Cart";
 import { Button } from "../Button";
 
-const RENDER_PRODUCTS_STATE_KEY = 'Products';
-const RENDER_CART_STATE_KEY = 'Cart'
+const RENDER_PRODUCTS_STATE_KEY = "Products";
+const RENDER_CART_STATE_KEY = "Cart";
 
 const initialProducts = [
   {
     id: 1,
-    name: 'Caneta',
-    description: 'R$2,00'
+    name: "Caneta",
+    description: "R$2,00",
   },
   {
     id: 2,
-    name: 'Pacote folha sulfite',
-    description: 'R$10,00'
+    name: "Pacote folha sulfite",
+    description: "R$10,00",
   },
   {
     id: 3,
-    name:'Lápis',
-    description: 'R$0,50'
-  }
-]
+    name: "Lápis",
+    description: "R$0,50",
+  },
+];
 
 export function Store() {
-
-  const [showComponents, setShowComponents] = useState(RENDER_PRODUCTS_STATE_KEY);
+  const [showComponents, setShowComponents] = useState(
+    RENDER_PRODUCTS_STATE_KEY
+  );
   const [products, setProducts] = useState(initialProducts);
   const [cartItems, setCartItems] = useState([]);
-  
-  const addToCart = (product) => {
 
-  const selectedProduct = cartItems.find((currentProduct)=>currentProduct.id === product.id)
-  const isAlreadyOnTheList = Boolean(selectedProduct)
-  
-   if (!isAlreadyOnTheList){
-  setCartItems([...cartItems, product ]);
+  const handleRemoveItemFromCart = (product) => {
+    const updateCartItems = cartItems.filter((item) => product.id !== item.id);
+    console.log(updateCartItems);
+    setCartItems(updateCartItems);
+  };
+
+  const addToCart = (product) => {
+    const selectedProduct = cartItems.find(
+      (currentProduct) => currentProduct.id === product.id
+    );
+    const isAlreadyOnTheList = Boolean(selectedProduct);
+
+    if (!isAlreadyOnTheList) {
+      setCartItems([...cartItems, product]);
     }
-  }
+  };
   return (
     <>
       <Button
         name="Products"
         onClick={() => setShowComponents(RENDER_PRODUCTS_STATE_KEY)}
       />
-      <Button 
-        name="Cart" 
-        onClick={() => setShowComponents(RENDER_CART_STATE_KEY)} 
+      <Button
+        name="Cart"
+        onClick={() => setShowComponents(RENDER_CART_STATE_KEY)}
       />
-      {showComponents === RENDER_PRODUCTS_STATE_KEY && <ProductsList products={products} addToCart={addToCart}/>}
-      {showComponents === RENDER_CART_STATE_KEY && <Cart items={cartItems}  />}
+      {showComponents === RENDER_PRODUCTS_STATE_KEY && (
+        <ProductsList products={products} addToCart={addToCart} />
+      )}
+      {showComponents === RENDER_CART_STATE_KEY && (
+        <Cart
+          items={cartItems}
+          handleRemoveItemFromCart={handleRemoveItemFromCart}
+        />
+      )}
     </>
   );
 }

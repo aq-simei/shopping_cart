@@ -1,15 +1,17 @@
-import { CartItem } from "../CartItem/CartItem";
+import { CartItem } from "../CartItem";
 
-export function Cart({items}) {
+export function Cart({ items, handleRemoveItemFromCart }) {
   return (
-    <ul>{
-    items.map((item)=>{
-      return(
-      <CartItem addedProduct={item} key={item.id}/>
-      )
-    }
-    )}
+    <ul>
+      {items.map((item) => {
+        return (
+          <CartItem
+            key={item.id}
+            addedProduct={item}
+            handleRemoveItemFromCart={handleRemoveItemFromCart}
+          />
+        );
+      })}
     </ul>
   );
 }
-
