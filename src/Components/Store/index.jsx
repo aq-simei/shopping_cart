@@ -23,6 +23,7 @@ const initialProducts = [
     description: 'R$0,50'
   }
 ]
+
 export function Store() {
 
   const [showComponents, setShowComponents] = useState(RENDER_PRODUCTS_STATE_KEY);
@@ -30,9 +31,14 @@ export function Store() {
   const [cartItems, setCartItems] = useState([]);
   
   const addToCart = (product) => {
-    setCartItems([...cartItems, product ]);
-  }
+
+  const selectedProduct = cartItems.find((currentProduct)=>currentProduct.id === product.id)
+  const isAlreadyOnTheList = Boolean(selectedProduct)
   
+   if (!isAlreadyOnTheList){
+  setCartItems([...cartItems, product ]);
+    }
+  }
   return (
     <>
       <Button
