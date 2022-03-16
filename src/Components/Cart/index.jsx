@@ -1,13 +1,11 @@
+import { CartItem } from "../CartItem/CartItem";
+
 export function Cart({items}) {
   return (
     <ul>{
     items.map((item)=>{
       return(
-        <li key={item.id}>
-          <span>{item.name}</span>
-          <span>{item.description}</span>
-        </li>
-
+      <CartItem addedProduct={item} key={item.id}/>
       )
     }
     )}
