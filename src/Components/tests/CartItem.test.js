@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { CartItem } from "../Components/CartItem";
+import { CartItem } from "../CartItem";
 
 describe("<CartItem />", () => {
   const props = {
@@ -9,7 +8,7 @@ describe("<CartItem />", () => {
       name: "AddedToCartTestName",
       description: "AddedToCartDescription",
     },
-    onHandleRemoveItem: () => {},
+    onRemoveItem: () => {},
   };
   it("should render the cart item's name", () => {
     render(<CartItem {...props} />);

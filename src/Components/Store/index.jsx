@@ -35,11 +35,8 @@ export function Store() {
     const updateCartItems = cartItems.filter((item) => product.id !== item.id);
     setCartItems(updateCartItems);
   };
-  const onHandleRemoveItem = (params) => {
-    handleRemoveItemFromCart(params);
-  };
 
-  const handleAddToCart = (product) => {
+  const handleAddItemToCart = (product) => {
     const selectedProduct = cartItems.find(
       (currentProduct) => currentProduct.id === product.id
     );
@@ -50,9 +47,6 @@ export function Store() {
     }
   };
 
-  const onHandleAddToCart = (params) => {
-    handleAddToCart(params);
-  };
   return (
     <>
       <Button
@@ -64,13 +58,13 @@ export function Store() {
         onClick={() => setShowComponents(RENDER_CART_STATE_KEY)}
       />
       {showComponents === RENDER_PRODUCTS_STATE_KEY && (
-        <ProductsList
-          products={products}
-          onHandleAddToCart={onHandleAddToCart}
-        />
+        <ProductsList products={products} onAddToCart={handleAddItemToCart} />
       )}
       {showComponents === RENDER_CART_STATE_KEY && (
-        <Cart items={cartItems} onHandleRemoveItem={onHandleRemoveItem} />
+        <Cart
+          items={cartItems}
+          onRemoveItemFromCart={handleRemoveItemFromCart}
+        />
       )}
     </>
   );
