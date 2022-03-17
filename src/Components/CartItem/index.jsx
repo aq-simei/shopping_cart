@@ -2,7 +2,7 @@ import { Button } from "../Button";
 
 export const CartItem = ({ productWithinCart, onHandleRemoveItem }) => {
   return (
-    <li key={productWithinCart.id}>
+    <li>
       <span>{productWithinCart.name}</span>
       <span>{productWithinCart.description}</span>''
       <Button
