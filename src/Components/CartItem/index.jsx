@@ -1,13 +1,13 @@
 import { Button } from "../Button";
 
-export const CartItem = ({ addedProduct, onRemoveItemFromCart }) => {
+export const CartItem = ({ product, onRemoveItemFromCart }) => {
   return (
     <li>
-      <span>{addedProduct.name}</span>
-      <span>{addedProduct.description}</span>
+      <span>{product.name}</span>
+      <span>{product.description}</span>
       <Button
         name="Remove from cart"
-        onClick={() => onRemoveItemFromCart(productWithinCart)}
+        onClick={() => onRemoveItemFromCart(product)}
       />
     </li>
   );

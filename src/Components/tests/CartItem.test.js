@@ -1,14 +1,15 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { CartItem } from "../CartItem";
 
 describe("<CartItem />", () => {
   const props = {
-    productWithinCart: {
+    product: {
       id: 1,
       name: "AddedToCartTestName",
       description: "AddedToCartDescription",
     },
-    onRemoveItem: () => {},
+    onRemoveItemFromCart: () => {},
   };
   it("should render the cart item's name", () => {
     render(<CartItem {...props} />);
@@ -32,20 +33,24 @@ describe("<CartItem />", () => {
 
   describe("When delete item button is clicked", () => {
     it("Should dispatch remove item function", () => {
-      const onHandleRemoveItem = jest.fn();
-      render(<CartItem {...props} onHandleRemoveItem={onHandleRemoveItem} />);
-      expect(onHandleRemoveItem).not.toHaveBeenCalled();
+      const onRemoveItemFromCart = jest.fn();
+      render(
+        <CartItem {...props} onRemoveItemFromCart={onRemoveItemFromCart} />
+      );
+      expect(onRemoveItemFromCart).not.toHaveBeenCalled();
 
       userEvent.click(
         screen.getByRole("button", {
           name: /remove from cart/i,
         })
       );
-      expect(onHandleRemoveItem).toHaveBeenCalledTimes(1);
+      expect(onRemoveItemFromCart).toHaveBeenCalledTimes(1);
     });
     it("Should use {itemWithinCart} as a parameter", () => {
-      const onHandleRemoveItem = jest.fn();
-      render(<CartItem {...props} onHandleRemoveItem={onHandleRemoveItem} />);
+      const onRemoveItemFromCart = jest.fn();
+      render(
+        <CartItem {...props} onRemoveItemFromCart={onRemoveItemFromCart} />
+      );
 
       userEvent.click(
         screen.getByRole("button", {
@@ -53,7 +58,7 @@ describe("<CartItem />", () => {
         })
       );
 
-      expect(onHandleRemoveItem).toHaveBeenCalledWith(props.productWithinCart);
+      expect(onRemoveItemFromCart).toHaveBeenCalledWith(props.product);
     });
   });
 });
