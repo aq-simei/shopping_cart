@@ -9,7 +9,7 @@ describe("<Product />", () => {
       name: "TestName",
       description: "TestDescription",
     },
-    onHandleAddToCart: () => {},
+    onAddToCart: () => {},
   };
 
   it("should render the product's name", () => {
@@ -34,26 +34,21 @@ describe("<Product />", () => {
 
   describe("When the addToCart button is clicked", () => {
     it("should dispatch addToCart function", () => {
-      const onHandleAddToCart = jest.fn();
-      render(<Product {...props} onHandleAddToCart={onHandleAddToCart} />);
+      const onAddToCart = jest.fn();
+      render(<Product {...props} onAddToCart={onAddToCart} />);
 
-      expect(onHandleAddToCart).not.toHaveBeenCalled();
+      expect(onAddToCart).not.toHaveBeenCalled();
 
       userEvent.click(
         screen.getByRole("button", {
           name: /add to cart/i,
         })
       );
-      expect(onHandleAddToCart).toHaveBeenCalledTimes(1);
+      expect(onAddToCart).toHaveBeenCalledTimes(1);
     });
     it("handleAddToCart should use the {product} object as parameter", () => {
-      const onHandleAddToCart = jest.fn();
-      render(
-        <Product
-          product={props.product}
-          onHandleAddToCart={onHandleAddToCart}
-        />
-      );
+      const onAddToCart = jest.fn();
+      render(<Product product={props.product} onAddToCart={onAddToCart} />);
 
       userEvent.click(
         screen.getByRole("button", {
@@ -61,7 +56,7 @@ describe("<Product />", () => {
         })
       );
 
-      expect(onHandleAddToCart).toHaveBeenCalledWith(props.product);
+      expect(onAddToCart).toHaveBeenCalledWith(props.product);
     });
   });
 });

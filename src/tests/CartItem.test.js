@@ -8,7 +8,7 @@ describe("<CartItem />", () => {
       name: "AddedToCartTestName",
       description: "AddedToCartDescription",
     },
-    onHandleRemoveItem: () => {},
+    onRemoveItem: () => {},
   };
   it("should render the cart item's name", () => {
     render(<CartItem {...props} />);

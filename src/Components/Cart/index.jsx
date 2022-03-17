@@ -1,6 +1,6 @@
 import { CartItem } from "../CartItem";
 
-export function Cart({ items, onHandleRemoveItem }) {
+export function Cart({ items, onRemoveItemFromCart }) {
   return (
     <ul>
       {items.map((item) => {
@@ -8,7 +8,7 @@ export function Cart({ items, onHandleRemoveItem }) {
           <CartItem
             key={item.id}
             addedProduct={item}
-            onHandleRemoveItem={onHandleRemoveItem}
+            onRemoveItemFromCart={onRemoveItemFromCart}
           />
         );
       })}
