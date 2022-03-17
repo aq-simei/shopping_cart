@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { CartItem } from "../Components/CartItem";
+import { CartItem } from "../CartItem";
 
 describe("<CartItem />", () => {
   const props = {

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Product } from "../Components/Product";
+import { Product } from "../Product";
 
 describe("<Product />", () => {
   const props = {
