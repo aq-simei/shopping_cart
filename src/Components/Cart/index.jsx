@@ -7,7 +7,7 @@ export function Cart({ items, onRemoveItemFromCart }) {
         return (
           <CartItem
             key={item.id}
-            addedProduct={item}
+            product={item}
             onRemoveItemFromCart={onRemoveItemFromCart}
           />
         );
