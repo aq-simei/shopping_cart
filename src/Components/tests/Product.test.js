@@ -27,7 +27,7 @@ describe("<Product />", () => {
 
     expect(
       screen.getByRole("button", {
-        name: /add to cart/i,
+        name: /add testname to cart/i,
       })
     ).toBeInTheDocument();
   });
@@ -41,7 +41,7 @@ describe("<Product />", () => {
 
       userEvent.click(
         screen.getByRole("button", {
-          name: /add to cart/i,
+          name: /add TestName to cart/i,
         })
       );
       expect(onAddToCart).toHaveBeenCalledTimes(1);
@@ -52,7 +52,7 @@ describe("<Product />", () => {
 
       userEvent.click(
         screen.getByRole("button", {
-          name: /add to cart/i,
+          name: /add TestName to cart/i,
         })
       );
 
