@@ -1,83 +1,76 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Cart } from "../Cart";
-import { ProductsList } from "../ProductsList";
 import { Store } from "../Store";
 
 describe("<Store />", () => {
   it("Should render two main buttons", () => {
     render(<Store />);
+    const productsButton = screen.getByRole("button", {
+      name: /products/i,
+    });
+    const cartButton = screen.getByRole("button", { name: /Cart/ });
+    expect(productsButton).toBeInTheDocument();
 
-    expect(
-      screen.getByRole("button", {
-        name: /products/i,
-      })
-    ).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Cart/ })).toBeInTheDocument();
+    expect(cartButton).toBeInTheDocument();
   });
 
-  it("Should render a default product list", () => {
+  it("Should render the product list by default", () => {
     render(<Store />);
+    const addPenToCartButton = screen.getByRole("button", {
+      name: "add Caneta to cart",
+    });
+    const addPaperToCartButton = screen.getByRole("button", {
+      name: "add Pacote folha sulfite to cart",
+    });
+    const addPencilToCartButton = screen.getByRole("button", {
+      name: "add Lápis to cart",
+    });
 
-    //pen
-    expect(
-      screen.getByRole("button", {
-        name: "add Caneta to cart",
-      })
-    ).toBeInTheDocument();
+    expect(addPenToCartButton).toBeInTheDocument();
 
-    //paper
+    expect(addPaperToCartButton).toBeInTheDocument();
 
-    expect(
-      screen.getByRole("button", {
-        name: "add Pacote folha sulfite to cart",
-      })
-    );
-    //pencil
-    expect(
-      screen.getByRole("button", {
-        name: "add Lápis to cart",
-      })
-    );
+    expect(addPencilToCartButton).toBeInTheDocument();
   });
-  it("Should add a product to Cart when addToCart is clicked", () => {
+  it("Should add a product to Cart when 'Add To Cart' button is clicked", () => {
     render(<Store />);
-    userEvent.click(
-      screen.getByRole("button", {
-        name: "add Caneta to cart",
-      })
-    );
-    userEvent.click(
-      screen.getByRole("button", {
-        name: "Cart",
-      })
-    );
+    const addPencilToCartButton = screen.getByRole("button", {
+      name: "add Lápis to cart",
+    });
+    const cartButton = screen.getByRole("button", { name: /Cart/ });
+
+    userEvent.click(addPencilToCartButton);
+    userEvent.click(cartButton);
+    const removeFromCartButton = screen.getByRole("button", {
+      name: /Remove from cart/,
+    });
+    expect(removeFromCartButton).toBeInTheDocument();
+  });
+  it("Should remove an item from the Cart when 'Remove From Cart' is clicked", () => {
+    render(<Store />);
+    const addPenToCartButton = screen.getByRole("button", {
+      name: "add Lápis to cart",
+    });
+    const cartButton = screen.getByRole("button", { name: /Cart/ });
+
     expect(
-      screen.getByRole("button", {
+      screen.queryByRole("button", {
         name: /remove from cart/i,
       })
-    ).toBeInTheDocument();
-  });
-  it("Should remove an item from the Cart when removeFromCart is clicked", () => {
-    render(<Store />);
+    ).not.toBeInTheDocument();
+
     //clicks the button to add an item to the Cart
-    userEvent.click(
-      screen.getByRole("button", {
-        name: "add Caneta to cart",
-      })
-    );
+    userEvent.click(addPenToCartButton);
+
     //clicks the button to move to the Cart section
-    userEvent.click(
-      screen.getByRole("button", {
-        name: "Cart",
-      })
-    );
+    userEvent.click(cartButton);
+
+    const removeFromCartButton = screen.getByRole("button", {
+      name: /Remove from cart/,
+    });
+
     //clicks the button to remove the item from cart
-    userEvent.click(
-      screen.getByRole("button", {
-        name: /remove from cart/i,
-      })
-    );
+    userEvent.click(removeFromCartButton);
     expect(screen.getByText("There are no items in Cart")).toBeInTheDocument();
   });
 });
