@@ -6,7 +6,11 @@ export function Product({ product, onAddToCart }) {
     <>
       <span>{name}</span>
       <span>{description}</span>
-      <Button name="Add to cart" onClick={() => onAddToCart(product)} />
+      <Button
+        name="Add to cart"
+        onClick={() => onAddToCart(product)}
+        ariaLabel={`add ${product.name} to cart`}
+      />
     </>
   );
 }
