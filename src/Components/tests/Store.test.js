@@ -1,4 +1,4 @@
-import { findByText, getByText, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Store } from "../Store";
 
@@ -82,8 +82,9 @@ describe("<Store />", () => {
       name: /checkout/i,
     });
     userEvent.click(checkoutButton);
-    screen.logTestingPlaygroundURL();
 
-    expect(screen.getByText("Next")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Checkout" })
+    ).toBeInTheDocument();
   });
 });
