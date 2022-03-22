@@ -2,9 +2,11 @@ import { useState } from "react";
 import { ProductsList } from "../ProductsList";
 import { Cart } from "../Cart";
 import { Button } from "../Button";
+import Checkout from "../Checkout";
 
 const RENDER_PRODUCTS_STATE_KEY = "Products";
 const RENDER_CART_STATE_KEY = "Cart";
+const RENDER_CHECKOUT_STATE_KEY = "Checkout";
 
 const initialProducts = [
   {
@@ -57,6 +59,13 @@ export function Store() {
         name="Cart"
         onClick={() => setShowComponents(RENDER_CART_STATE_KEY)}
       />
+      <Button
+        name="Checkout"
+        onClick={() => setShowComponents(RENDER_CHECKOUT_STATE_KEY)}
+      />
+
+      {showComponents === RENDER_CHECKOUT_STATE_KEY && <Checkout />}
+
       {showComponents === RENDER_PRODUCTS_STATE_KEY && (
         <ProductsList products={products} onAddToCart={handleAddItemToCart} />
       )}
