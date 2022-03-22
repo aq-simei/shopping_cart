@@ -4,6 +4,12 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import countryStateData from "../../assets/country_states.json";
+import CountrySateSelector from "./CountryStateSelector";
+
+const countrysList = countryStateData.countries;
+
+console.log(countrysList);
 
 export default function AddressForm() {
   return (
@@ -78,7 +84,7 @@ export default function AddressForm() {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
+          <CountrySateSelector
             id="state"
             name="state"
             label="State/Province/Region"
