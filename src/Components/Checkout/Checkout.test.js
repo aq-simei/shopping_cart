@@ -5,10 +5,10 @@ import Checkout from "../Checkout";
 describe("Checkout component", () => {
   it("Renders the shipping address form by default", () => {
     render(<Checkout />);
-    const shippingAddressHeader = screen.getByRole("heading", {
+    const shippingAddressHeading = screen.getByRole("heading", {
       name: "Shipping address",
     });
-    expect(shippingAddressHeader).toBeInTheDocument();
+    expect(shippingAddressHeading).toBeInTheDocument();
   });
 
   it("Renders the Payment method", () => {
@@ -16,7 +16,9 @@ describe("Checkout component", () => {
     const nextButton = screen.getByText(/Next/i);
     userEvent.click(nextButton);
 
-    const paymentMethodHeading = screen.getByText("Payment method");
+    const paymentMethodHeading = screen.getByRole("heading", {
+      name: "Payment method",
+    });
 
     expect(paymentMethodHeading).toBeInTheDocument();
   });
@@ -27,7 +29,9 @@ describe("Checkout component", () => {
     userEvent.click(nextButton);
     userEvent.click(nextButton);
 
-    const orderSummaryHeading = screen.getByText("Order summary");
+    const orderSummaryHeading = screen.getByRole("heading", {
+      name: "Order summary",
+    });
     expect(orderSummaryHeading).toBeInTheDocument();
   });
 });

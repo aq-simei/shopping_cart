@@ -81,10 +81,11 @@ describe("<Store />", () => {
     const checkoutButton = screen.getByRole("button", {
       name: /checkout/i,
     });
+
     userEvent.click(checkoutButton);
 
-    expect(
-      screen.getByRole("heading", { name: "Checkout" })
-    ).toBeInTheDocument();
+    const checkoutHeading = screen.getByRole("heading", { name: "Checkout" });
+
+    expect(checkoutHeading).toBeInTheDocument();
   });
 });
