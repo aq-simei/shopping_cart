@@ -3,12 +3,15 @@ import userEvent from "@testing-library/user-event";
 import { Store } from "../Store";
 
 describe("<Store />", () => {
-  it("Should render two main buttons", () => {
+  it("Should render three main buttons", () => {
     render(<Store />);
     const productsButton = screen.getByRole("button", {
       name: /products/i,
     });
     const cartButton = screen.getByRole("button", { name: /Cart/ });
+    const checkoutButton = screen.getByRole("button", { name: /Checkout/ });
+
+    expect(checkoutButton).toBeInTheDocument();
     expect(productsButton).toBeInTheDocument();
 
     expect(cartButton).toBeInTheDocument();
@@ -72,5 +75,17 @@ describe("<Store />", () => {
     //clicks the button to remove the item from cart
     userEvent.click(removeFromCartButton);
     expect(screen.getByText("There are no items in Cart")).toBeInTheDocument();
+  });
+  it("should render the checkout component when the checkout button is clicked", () => {
+    render(<Store />);
+    const checkoutButton = screen.getByRole("button", {
+      name: /checkout/i,
+    });
+
+    userEvent.click(checkoutButton);
+
+    const checkoutHeading = screen.getByRole("heading", { name: "Checkout" });
+
+    expect(checkoutHeading).toBeInTheDocument();
   });
 });
