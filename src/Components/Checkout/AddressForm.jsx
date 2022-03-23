@@ -5,13 +5,26 @@ import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import countryStateData from "../../assets/country_states.json";
-import CountrySateSelector from "./CountryStateSelector";
+import CountrySelector from "./CountrySelector";
+import StateSelector from "./StateSelector";
 
 const countrysList = countryStateData.countries;
 
 console.log(countrysList);
 
 export default function AddressForm() {
+  const [currentCountry, setCurrentCountry] = React.useState("");
+
+  const handleChangeCurrentCountry = (event) => {
+    setCurrentCountry(event.target.value);
+  };
+
+  const [currentState, setCurrentState] = React.useState("");
+
+  const handleChangeCurrentState = (event) => {
+    setCurrentState(event.target.value);
+  };
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -84,23 +97,28 @@ export default function AddressForm() {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <CountrySateSelector
-            id="state"
-            name="state"
-            label="State/Province/Region"
-            fullWidth
-            variant="standard"
-          />
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
-          <TextField
+          <CountrySelector
+            currentCountry={currentCountry}
+            onChangeCurrentCountry={handleChangeCurrentCountry}
             required
             id="country"
             name="country"
             label="Country"
             fullWidth
             autoComplete="shipping country"
+            variant="standard"
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <StateSelector
+            currentCountry={currentCountry}
+            currentState={currentState}
+            onChangeCurrentState={handleChangeCurrentState}
+            id="state"
+            name="state"
+            label="State/Province/Region"
+            fullWidth
             variant="standard"
           />
         </Grid>

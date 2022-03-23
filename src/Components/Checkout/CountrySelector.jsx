@@ -5,23 +5,12 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import CountryStatesData from "../../assets/country_states.json";
 
-export default function CountrySateSelector() {
-  const [country, setCountry] = React.useState("");
-  const [open, setOpen] = React.useState(false);
-  const countries = CountryStatesData.countries;
+const countries = CountryStatesData.countries;
 
-  const handleChange = (event) => {
-    setCountry(event.target.value);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
+export default function CountrySelector({
+  currentCountry,
+  onChangeCurrentCountry,
+}) {
   return (
     <div>
       <FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -29,22 +18,17 @@ export default function CountrySateSelector() {
         <Select
           labelId="country-controlled-select-label"
           id="country-controlled-select-label"
-          open={open}
-          onClose={handleClose}
-          onOpen={handleOpen}
-          value={country}
+          value={currentCountry}
           label="country"
-          onChange={handleChange}
+          onChange={onChangeCurrentCountry}
         >
-          return(
           {countries.map((country) => {
             return (
-              <MenuItem key={country.id} value={country.country}>
+              <MenuItem key={country.country} value={country.country}>
                 {country.country}
               </MenuItem>
             );
           })}
-          )
         </Select>
       </FormControl>
     </div>
