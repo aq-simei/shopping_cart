@@ -16,13 +16,6 @@ export default function StateSelector({
 
   const currentStates = selectedCountry?.states || [];
 
-  console.log({ currentStates });
-  // const filterArray = () => {
-  //   countries.find((country) => {
-  //     country.country === current;
-  //   });
-  // };
-
   return (
     <div>
       <FormControl sx={{ m: 1, minWidth: 120 }}>
