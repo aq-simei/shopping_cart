@@ -18,7 +18,6 @@ export default function StateSelector({
   });
 
   const currentStates = selectedCountry?.states || [];
-  console.log({ currentStates, currentState });
   return (
     <FormControl sx={{ m: 1, minWidth: 120 }} fullWidth>
       <InputLabel id="state-controlled-select-label">State</InputLabel>
