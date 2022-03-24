@@ -4,22 +4,27 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import countryStateData from "../../assets/country_states.json";
 import CountrySelector from "./CountrySelector";
 import StateSelector from "./StateSelector";
 
-const countrysList = countryStateData.countries;
-
-console.log(countrysList);
-
 export default function AddressForm() {
   const [currentCountry, setCurrentCountry] = React.useState("");
+  const [currentState, setCurrentState] = React.useState("");
+
+  React.useEffect(() => {
+    updateState();
+  }, [currentCountry.states]);
+
+  const updateState = () => {
+    if (!currentCountry.states) {
+      return;
+    }
+    setCurrentState("");
+  };
 
   const handleChangeCurrentCountry = (event) => {
     setCurrentCountry(event.target.value);
   };
-
-  const [currentState, setCurrentState] = React.useState("");
 
   const handleChangeCurrentState = (event) => {
     setCurrentState(event.target.value);
@@ -115,11 +120,6 @@ export default function AddressForm() {
             currentCountry={currentCountry}
             currentState={currentState}
             onChangeCurrentState={handleChangeCurrentState}
-            id="state"
-            name="state"
-            label="State/Province/Region"
-            fullWidth
-            variant="standard"
           />
         </Grid>
         <Grid item xs={12}>

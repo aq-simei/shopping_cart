@@ -9,6 +9,9 @@ export default function StateSelector({
   currentCountry,
   currentState,
   onChangeCurrentState,
+  id = "state",
+  name = "state",
+  label = "State/Province/Region",
 }) {
   const selectedCountry = CountryStatesData.countries.find((country) => {
     return country.country === currentCountry;
@@ -17,25 +20,25 @@ export default function StateSelector({
   const currentStates = selectedCountry?.states || [];
 
   return (
-    <div>
-      <FormControl sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="state-controlled-select-label">State</InputLabel>
-        <Select
-          labelId="state-controlled-select-label"
-          id="state-controlled-select-label"
-          value={currentState}
-          label="state"
-          onChange={onChangeCurrentState}
-        >
-          {currentStates.map((state) => {
-            return (
-              <MenuItem key={state} value={state}>
-                {state}
-              </MenuItem>
-            );
-          })}
-        </Select>
-      </FormControl>
-    </div>
+    <FormControl sx={{ m: 1, minWidth: 120 }} fullWidth>
+      <InputLabel id="state-controlled-select-label">State</InputLabel>
+      <Select
+        labelId="state-controlled-select-label"
+        id={id}
+        name={name}
+        value={currentState}
+        label={label}
+        onChange={onChangeCurrentState}
+        disabled={!currentCountry}
+      >
+        {currentStates.map((state) => {
+          return (
+            <MenuItem key={state} value={state}>
+              {state}
+            </MenuItem>
+          );
+        })}
+      </Select>
+    </FormControl>
   );
 }
