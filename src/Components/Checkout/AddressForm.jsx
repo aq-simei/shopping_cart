@@ -11,32 +11,14 @@ export default function AddressForm() {
   const [currentCountry, setCurrentCountry] = React.useState("");
   const [currentState, setCurrentState] = React.useState("");
 
-  React.useEffect(() => {
-    updateState();
-  }, [currentCountry.states]);
-
-  const updateState = (currentState) => {
-    const { states } = currentState || {};
-    if (!states) {
-      setCurrentState("");
-    }
-    setCurrentState(currentState);
-  };
-  const updateCountry = (currentCountry) => {
-    if (!currentCountry) {
-      setCurrentCountry("");
-    }
-    setCurrentCountry(currentCountry);
-  };
-
   const handleChangeCurrentCountry = (event) => {
-    updateCountry(event.target.value);
+    setCurrentCountry(event.target.value || "");
+    setCurrentState("");
   };
 
   const handleChangeCurrentState = (event) => {
-    updateState(event.target.value);
+    setCurrentState(event.target.value || "");
   };
-  console.log(currentCountry);
 
   return (
     <React.Fragment>
