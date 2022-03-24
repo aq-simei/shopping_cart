@@ -16,6 +16,7 @@ export default function CountrySelector({
       <FormControl sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="country-controlled-select-label">Country</InputLabel>
         <Select
+          name="country"
           labelId="country-controlled-select-label"
           id="country-controlled-select-label"
           value={currentCountry}

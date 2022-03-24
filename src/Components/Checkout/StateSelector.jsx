@@ -21,10 +21,11 @@ export default function StateSelector({
       <FormControl sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="state-controlled-select-label">State</InputLabel>
         <Select
+          name="state"
+          label="State/Province/Region"
           labelId="state-controlled-select-label"
           id="state-controlled-select-label"
           value={currentState}
-          label="state"
           onChange={onChangeCurrentState}
         >
           {currentStates.map((state) => {

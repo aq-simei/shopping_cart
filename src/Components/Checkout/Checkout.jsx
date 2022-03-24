@@ -13,10 +13,15 @@ import Review from "./Review";
 
 const steps = ["Shipping address", "Payment details", "Review your order"];
 
-function getStepContent(step) {
+function getStepContent(step, addressFormData, handleChangeAddressFormData) {
   switch (step) {
     case 0:
-      return <AddressForm />;
+      return (
+        <AddressForm
+          formData={addressFormData}
+          onChange={handleChangeAddressFormData}
+        />
+      );
     case 1:
       return <PaymentForm />;
     case 2:
@@ -25,9 +30,34 @@ function getStepContent(step) {
       throw new Error("Unknown step");
   }
 }
+const checkValidation = (formData) => {
+  if (
+    formData?.firstName &&
+    formData?.address1 &&
+    formData?.zip &&
+    formData?.city &&
+    formData?.country &&
+    formData?.state
+  ) {
+    return false;
+  }
+  return true;
+};
 
 export default function Checkout() {
+  const [addressFormData, setAddressFormData] = React.useState({
+    country: "",
+    state: "",
+    firstName: "",
+  });
+  console.log(addressFormData);
+
   const [activeStep, setActiveStep] = React.useState(0);
+
+  const handleChangeAddressFormData = (event) => {
+    const { name, value } = event.target;
+    setAddressFormData({ ...addressFormData, [name]: value });
+  };
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -67,7 +97,11 @@ export default function Checkout() {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {getStepContent(activeStep)}
+              {getStepContent(
+                activeStep,
+                addressFormData,
+                handleChangeAddressFormData
+              )}
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
@@ -79,6 +113,7 @@ export default function Checkout() {
                   variant="contained"
                   onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}
+                  disabled={checkValidation(addressFormData)}
                 >
                   {activeStep === steps.length - 1 ? "Place order" : "Next"}
                 </Button>
