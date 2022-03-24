@@ -13,7 +13,13 @@ import Review from "./Review";
 
 const steps = ["Shipping address", "Payment details", "Review your order"];
 
-function getStepContent(step, addressFormData, handleChangeAddressFormData) {
+function getStepContent(
+  step,
+  addressFormData,
+  paymentFormData,
+  handleChangeAddressFormData,
+  handleChangePaymentFormData
+) {
   switch (step) {
     case 0:
       return (
@@ -23,14 +29,19 @@ function getStepContent(step, addressFormData, handleChangeAddressFormData) {
         />
       );
     case 1:
-      return <PaymentForm />;
+      return (
+        <PaymentForm
+          formData={paymentFormData}
+          onChange={handleChangePaymentFormData}
+        />
+      );
     case 2:
       return <Review />;
     default:
       throw new Error("Unknown step");
   }
 }
-const checkValidation = (formData) => {
+const addressFormValidation = (formData) => {
   if (
     formData?.firstName &&
     formData?.address1 &&
@@ -44,16 +55,33 @@ const checkValidation = (formData) => {
   return true;
 };
 
+const checkValidation = (step, formData) => {
+  switch (step) {
+    case 0:
+      return addressFormValidation(formData);
+    case 1:
+      return; //paymentFormValidation(formData);
+    case 2:
+      return;
+  }
+};
+
 export default function Checkout() {
   const [addressFormData, setAddressFormData] = React.useState({
     country: "",
     state: "",
     firstName: "",
   });
-  console.log(addressFormData);
+  const [currentFormData, setCurrentFormData] = React.useState(addressFormData);
 
   const [activeStep, setActiveStep] = React.useState(0);
 
+  const [paymentFormData, setPaymentFormData] = React.useState({});
+
+  const handleChangePaymentFormData = (event) => {
+    const { name, value } = event.target;
+    setPaymentFormData({ ...paymentFormData, [name]: value });
+  };
   const handleChangeAddressFormData = (event) => {
     const { name, value } = event.target;
     setAddressFormData({ ...addressFormData, [name]: value });
@@ -66,6 +94,17 @@ export default function Checkout() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  React.useEffect((activeStep, addressFormData, paymentFormData) => {
+    switch (activeStep) {
+      case 0:
+        setCurrentFormData(addressFormData);
+      case 1:
+        setCurrentFormData(paymentFormData);
+      default:
+        return;
+    }
+  }, []);
 
   return (
     <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
@@ -100,7 +139,9 @@ export default function Checkout() {
               {getStepContent(
                 activeStep,
                 addressFormData,
-                handleChangeAddressFormData
+                paymentFormData,
+                handleChangeAddressFormData,
+                handleChangePaymentFormData
               )}
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                 {activeStep !== 0 && (
@@ -113,7 +154,7 @@ export default function Checkout() {
                   variant="contained"
                   onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}
-                  disabled={checkValidation(addressFormData)}
+                  disabled={checkValidation(activeStep, currentFormData)}
                 >
                   {activeStep === steps.length - 1 ? "Place order" : "Next"}
                 </Button>
