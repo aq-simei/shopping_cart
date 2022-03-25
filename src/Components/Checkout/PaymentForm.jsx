@@ -14,36 +14,46 @@ export default function PaymentForm({ formData, onChange }) {
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <TextField
+            name="cardName"
             required
             id="cardName"
             label="Name on card"
             fullWidth
             autoComplete="cc-name"
             variant="standard"
+            onChange={onChange}
+            value={formData.cardName || ""}
           />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
+            name="cardNumber"
             required
             id="cardNumber"
             label="Card number"
             fullWidth
             autoComplete="cc-number"
             variant="standard"
+            onChange={onChange}
+            value={formData.cardNumber || ""}
           />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
+            name="expDate"
             required
             id="expDate"
             label="Expiry date"
             fullWidth
             autoComplete="cc-exp"
             variant="standard"
+            onChange={onChange}
+            value={formData.expDate || ""}
           />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
+            name="cvv"
             required
             id="cvv"
             label="CVV"
@@ -51,6 +61,8 @@ export default function PaymentForm({ formData, onChange }) {
             fullWidth
             autoComplete="cc-csc"
             variant="standard"
+            onChange={onChange}
+            value={formData.cvv || ""}
           />
         </Grid>
         <Grid item xs={12}>
