@@ -5,37 +5,24 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
 
-const products = [
-  {
-    name: "Product 1",
-    desc: "A nice thing",
-    price: "$9.99",
-  },
-  {
-    name: "Product 2",
-    desc: "Another thing",
-    price: "$3.45",
-  },
-  {
-    name: "Product 3",
-    desc: "Something else",
-    price: "$6.51",
-  },
-  {
-    name: "Product 4",
-    desc: "Best thing of all",
-    price: "$14.11",
-  },
-  { name: "Shipping", desc: "", price: "Free" },
-];
-
-const addresses = ["1 MUI Drive", "Reactville", "Anytown", "99999", "USA"];
-
-export default function Review({ formData }) {
+export default function Review({ formData, products }) {
   const fullAddress = `${formData.address1}, ${formData.city}, ${formData.state} ${formData.zip} ${formData.country}`;
+
   const formatCardNumber = (cardNumber) => {
     const last4Digits = cardNumber.slice(-4);
-    return ` **** **** **** ${last4Digits}`;
+    return ` XXXX-XXXX-XXXX-${last4Digits}`;
+  };
+
+  const formatDescription = (product) => {
+    const numberPrice = product.description.split("R$")[1];
+    return parseFloat(numberPrice).toFixed(2);
+  };
+
+  const totalPrice = (products) => {
+    return products.reduce((acc, product) => {
+      console.log(product.price);
+      return acc + product.price;
+    }, 0);
   };
 
   const payments = [
@@ -52,15 +39,18 @@ export default function Review({ formData }) {
       <List disablePadding>
         {products.map((product) => (
           <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
-            <ListItemText primary={product.name} secondary={product.desc} />
-            <Typography variant="body2">{product.price}</Typography>
+            <ListItemText primary={product.name} />
+            <Typography variant="body2">
+              {product.description}
+              {product.price.toFixed(2)}
+            </Typography>
           </ListItem>
         ))}
 
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            $34.06
+            {`R$ ${totalPrice(products).toFixed(2)}`}
           </Typography>
         </ListItem>
       </List>
