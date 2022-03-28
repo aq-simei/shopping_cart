@@ -127,13 +127,7 @@ export default function Checkout() {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {getStepContent(
-                activeStep,
-                addressFormData,
-                paymentFormData,
-                handleChangeAddressFormData,
-                handleChangePaymentFormData
-              )}
+              {getStepContent()}
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
