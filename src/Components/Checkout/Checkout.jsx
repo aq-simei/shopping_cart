@@ -74,16 +74,6 @@ export default function Checkout() {
   };
   const currentFormData = { ...addressFormData, ...paymentFormData };
 
-  // React.useEffect(() => {
-  //   switch (activeStep) {
-  //     case 0:
-  //       setCurrentFormData(addressFormData);
-  //     case 1:
-  //       setCurrentFormData(paymentFormData);
-  //     default:
-  //       return;
-  //   }
-  // }, []);
   function getStepContent() {
     switch (activeStep) {
       case 0:
@@ -101,7 +91,7 @@ export default function Checkout() {
           />
         );
       case 2:
-        return <Review />;
+        return <Review formData={currentFormData} />;
       default:
         throw new Error("Unknown step");
     }
