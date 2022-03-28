@@ -65,6 +65,10 @@ export default function Checkout() {
     }
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
@@ -100,6 +104,8 @@ export default function Checkout() {
   return (
     <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
       <Paper
+        component="form"
+        onSubmit={handleSubmit}
         variant="outlined"
         sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
       >
@@ -143,6 +149,7 @@ export default function Checkout() {
 
                 <Button
                   variant="contained"
+                  type="submit"
                   onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}
                   disabled={checkValidation(activeStep, currentFormData)}
