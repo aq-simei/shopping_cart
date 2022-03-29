@@ -60,6 +60,7 @@ export default function Checkout() {
     const { name, value } = event.target;
     setPaymentFormData({ ...paymentFormData, [name]: value });
   };
+
   const handleChangeAddressFormData = (event) => {
     const { name, value } = event.target;
     if (name === "country") {
@@ -68,6 +69,7 @@ export default function Checkout() {
       setAddressFormData({ ...addressFormData, [name]: value });
     }
   };
+
   const onChangeAddressCheckBox = ({ target: { checked } }) => {
     setAddressFormData({ ...addressFormData, save: checked });
   };
@@ -79,6 +81,7 @@ export default function Checkout() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
   const currentFormData = { ...addressFormData, ...paymentFormData };
 
   function getStepContent() {
