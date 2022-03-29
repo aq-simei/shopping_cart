@@ -42,9 +42,7 @@ const checkValidation = (step, formData) => {
       return true;
   }
 };
-const handleSubmit = (event) => {
-  event.preventDefault();
-};
+
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [addressFormData, setAddressFormData] = React.useState({
@@ -81,12 +79,14 @@ export default function Checkout() {
     setAddressFormData({ ...addressFormData, saveAddress: checked });
   };
 
+  const handleBack = () => {
+    setActiveStep(activeStep - 1);
+  };
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
-
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
+  const handleSubmit = (event) => {
+    event.preventDefault();
   };
 
   const currentFormData = { ...addressFormData, ...paymentFormData };
@@ -97,7 +97,7 @@ export default function Checkout() {
         return (
           <AddressForm
             formData={addressFormData}
-            onChange={handleChangeAddressFormData}
+            handleChange={handleChangeAddressFormData}
             handleChangeAddressCheckBox={handleChangeAddressCheckBox}
           />
         );
@@ -119,6 +119,7 @@ export default function Checkout() {
   return (
     <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
       <Paper
+        onSubmit={handleSubmit}
         component="form"
         variant="outlined"
         sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
@@ -159,7 +160,6 @@ export default function Checkout() {
                   variant="contained"
                   type="submit"
                   onClick={handleNext}
-                  onSubmit={handleSubmit}
                   sx={{ mt: 3, ml: 1 }}
                   disabled={!checkValidation(activeStep, currentFormData)}
                 >
