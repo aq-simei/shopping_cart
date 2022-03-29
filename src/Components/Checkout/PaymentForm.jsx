@@ -8,7 +8,7 @@ import Checkbox from "@mui/material/Checkbox";
 export default function PaymentForm({
   formData,
   onChange,
-  handleChangePaymentCheckBox,
+  onChangePaymentCheckBox,
 }) {
   return (
     <React.Fragment>
@@ -72,7 +72,7 @@ export default function PaymentForm({
         <Grid item xs={12}>
           <FormControlLabel
             checked={formData.saveCard}
-            onChange={handleChangePaymentCheckBox}
+            onChange={onChangePaymentCheckBox}
             control={<Checkbox color="secondary" name="saveCard" value="yes" />}
             label="Remember credit card details for next time"
           />

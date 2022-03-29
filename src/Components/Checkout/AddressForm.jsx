@@ -10,8 +10,7 @@ import StateSelector from "./StateSelector";
 export default function AddressForm({
   formData,
   onChange,
-  handleChangeAddressCheckBox,
-  checked,
+  onChangeAddressCheckBox,
 }) {
   return (
     <React.Fragment>
@@ -116,7 +115,7 @@ export default function AddressForm({
                 color="secondary"
                 name="saveAddress"
                 checked={formData.save}
-                onChange={handleChangeAddressCheckBox}
+                onChange={onChangeAddressCheckBox}
               />
             }
             label="Use this address for payment details"

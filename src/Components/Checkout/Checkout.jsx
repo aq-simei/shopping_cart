@@ -52,7 +52,7 @@ export default function Checkout() {
   });
   const [paymentFormData, setPaymentFormData] = React.useState({});
 
-  const handleChangePaymentCheckBox = ({ target: { checked } }) => {
+  const onChangePaymentCheckBox = ({ target: { checked } }) => {
     setPaymentFormData({ ...paymentFormData, saveCard: checked });
   };
 
@@ -68,7 +68,7 @@ export default function Checkout() {
       setAddressFormData({ ...addressFormData, [name]: value });
     }
   };
-  const handleChangeAddressCheckBox = ({ target: { checked } }) => {
+  const onChangeAddressCheckBox = ({ target: { checked } }) => {
     setAddressFormData({ ...addressFormData, save: checked });
   };
 
@@ -88,7 +88,7 @@ export default function Checkout() {
           <AddressForm
             formData={addressFormData}
             onChange={handleChangeAddressFormData}
-            handleChangeAddressCheckBox={handleChangeAddressCheckBox}
+            onChangeAddressCheckBox={onChangeAddressCheckBox}
           />
         );
       case 1:
@@ -96,7 +96,7 @@ export default function Checkout() {
           <PaymentForm
             formData={paymentFormData}
             onChange={handleChangePaymentFormData}
-            handleChangePaymentCheckBox={handleChangePaymentCheckBox}
+            onChangePaymentCheckBox={onChangePaymentCheckBox}
           />
         );
       case 2:
