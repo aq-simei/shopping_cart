@@ -5,32 +5,45 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
 
-export default function Review({ formData, products }) {
+const products = [
+  {
+    name: "Product 1",
+    desc: "A nice thing",
+    price: "$9.99",
+  },
+  {
+    name: "Product 2",
+    desc: "Another thing",
+    price: "$3.45",
+  },
+  {
+    name: "Product 3",
+    desc: "Something else",
+    price: "$6.51",
+  },
+  {
+    name: "Product 4",
+    desc: "Best thing of all",
+    price: "$14.11",
+  },
+  { name: "Shipping", desc: "", price: "Free" },
+];
+
+const formatCardNumber = (cardNumber) => {
+  const last4Digits = cardNumber.slice(-4);
+  return ` XXXX-XXXX-XXXX-${last4Digits}`;
+};
+
+export default function Review({ formData }) {
   const fullAddress = `${formData.address1}, ${formData.city}, ${formData.state} ${formData.zip} ${formData.country}`;
-
-  const formatCardNumber = (cardNumber) => {
-    const last4Digits = cardNumber.slice(-4);
-    return ` XXXX-XXXX-XXXX-${last4Digits}`;
-  };
-
-  const formatDescription = (product) => {
-    const numberPrice = product.description.split("R$")[1];
-    return parseFloat(numberPrice).toFixed(2);
-  };
-
-  const totalPrice = (products) => {
-    return products.reduce((acc, product) => {
-      console.log(product.price);
-      return acc + product.price;
-    }, 0);
-  };
 
   const payments = [
     { name: "Card type", detail: "Visa" },
     { name: "Card holder", detail: formData.cardName },
     { name: "Card number", detail: formatCardNumber(formData.cardNumber) },
-    { name: "Expiry date", detail: "04/2024" },
+    { name: "Expiry date", detail: formData.expDate },
   ];
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>

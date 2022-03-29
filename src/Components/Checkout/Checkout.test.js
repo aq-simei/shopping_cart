@@ -120,78 +120,106 @@ describe("Checkout component", () => {
     });
     describe("While the Payment Form inputs are invalid", () => {
       it("Renders a disabled Next button", () => {
-        const nextButton = screen.getByRole("button", { name: /Next/i });
-
-        expect(nextButton).toBeDisabled();
-      });
-    });
-    describe("While the Payment Form inputs are valid", () => {
-      it("Renders an enabled Next button", () => {
         const countrySelector = screen.getByRole("button", {
           name: /country/i,
         });
-
         userEvent.click(countrySelector);
 
-        const argentinaOption = screen.getByRole("option", {
-          name: /argentina/i,
+        const brazilOption = screen.getByRole("option", {
+          name: /brazil/i,
         });
-
-        userEvent.click(argentinaOption);
+        userEvent.click(brazilOption);
 
         const stateSelector = screen.getByRole("button", {
           name: /state/i,
         });
+
         userEvent.click(stateSelector);
 
-        const buenosAiresCapitalOption = screen.getByRole("option", {
-          name: /buenos aires capital/i,
+        const saoPauloOption = screen.getByRole("option", {
+          name: /sao paulo/i,
         });
 
-        userEvent.click(buenosAiresCapitalOption);
+        userEvent.click(saoPauloOption);
+
         const nextButton = screen.getByRole("button", { name: /Next/i });
+
         userEvent.click(nextButton);
 
-        fillOutPaymentForm();
-        expect(nextButton).toBeEnabled();
-      });
-      describe("When the Next Button is clicked a second time", () => {
-        it("Renders the Review Order form", () => {
-          const countrySelector = screen.getByRole("button", {
-            name: /country/i,
-          });
-          userEvent.click(countrySelector);
-
-          const brazilOption = screen.getByRole("option", {
-            name: /brazil/i,
-          });
-          userEvent.click(brazilOption);
-
-          const stateSelector = screen.getByRole("button", {
-            name: /state/i,
-          });
-
-          userEvent.click(stateSelector);
-
-          const saoPauloOption = screen.getByRole("option", {
-            name: /sao paulo/i,
-          });
-
-          userEvent.click(saoPauloOption);
-
-          const nextButton = screen.getByRole("button", { name: /Next/i });
-          userEvent.click(nextButton);
-          fillOutPaymentForm();
-          const secondButton = screen.getByRole("button", {
-            name: /Next/i,
-          });
-
-          userEvent.click(secondButton);
-          const shippingAddress = screen.getByText(
-            /123 main st, anytown, sao paulo 12345 brazil/i
-          );
-          expect(shippingAddress).toBeInTheDocument();
+        const secondNextButton = screen.getByRole("button", {
+          name: /Next/i,
         });
+
+        expect(secondNextButton).toBeDisabled();
+      });
+    });
+  });
+  describe("While the Payment Form inputs are valid", () => {
+    it("Renders an enabled Next button", () => {
+      const countrySelector = screen.getByRole("button", {
+        name: /country/i,
+      });
+
+      userEvent.click(countrySelector);
+
+      const argentinaOption = screen.getByRole("option", {
+        name: /argentina/i,
+      });
+
+      userEvent.click(argentinaOption);
+
+      const stateSelector = screen.getByRole("button", {
+        name: /state/i,
+      });
+      userEvent.click(stateSelector);
+
+      const buenosAiresCapitalOption = screen.getByRole("option", {
+        name: /buenos aires capital/i,
+      });
+
+      userEvent.click(buenosAiresCapitalOption);
+      const nextButton = screen.getByRole("button", { name: /Next/i });
+      userEvent.click(nextButton);
+
+      fillOutPaymentForm();
+      expect(nextButton).toBeEnabled();
+    });
+    describe("When the Next Button is clicked a second time", () => {
+      it("Renders the Review Order form", () => {
+        const countrySelector = screen.getByRole("button", {
+          name: /country/i,
+        });
+        userEvent.click(countrySelector);
+
+        const brazilOption = screen.getByRole("option", {
+          name: /brazil/i,
+        });
+        userEvent.click(brazilOption);
+
+        const stateSelector = screen.getByRole("button", {
+          name: /state/i,
+        });
+
+        userEvent.click(stateSelector);
+
+        const saoPauloOption = screen.getByRole("option", {
+          name: /sao paulo/i,
+        });
+
+        userEvent.click(saoPauloOption);
+
+        const nextButton = screen.getByRole("button", { name: /Next/i });
+        userEvent.click(nextButton);
+        fillOutPaymentForm();
+        const secondButton = screen.getByRole("button", {
+          name: /Next/i,
+        });
+
+        userEvent.click(secondButton);
+        const shippingAddress = screen.getByText(
+          /123 main st, anytown, sao paulo 12345 brazil/i
+        );
+        expect(shippingAddress).toBeInTheDocument();
       });
     });
   });

@@ -14,21 +14,21 @@ import Review from "./Review";
 const steps = ["Shipping address", "Payment details", "Review your order"];
 
 const addressFormValidation = (formData) => {
-  return !(
+  return Boolean(
     formData?.firstName &&
-    formData?.address1 &&
-    formData?.zip &&
-    formData?.city &&
-    formData?.country &&
-    formData?.state
+      formData?.address1 &&
+      formData?.zip &&
+      formData?.city &&
+      formData?.country &&
+      formData?.state
   );
 };
 const paymentFormValidation = (formData) => {
-  return !(
+  return Boolean(
     formData?.cardName &&
-    formData?.cardNumber &&
-    formData?.cvv &&
-    formData?.expDate
+      formData?.cardNumber &&
+      formData?.cvv &&
+      formData?.expDate
   );
 };
 
@@ -39,7 +39,7 @@ const checkValidation = (step, formData) => {
     case 1:
       return paymentFormValidation(formData);
     case 2:
-      return;
+      return true;
   }
 };
 
@@ -49,13 +49,17 @@ export default function Checkout({ products }) {
     country: "",
     state: "",
     firstName: "",
+    saveAddress: false,
+    saveCard: false,
   });
+
   const [paymentFormData, setPaymentFormData] = React.useState({});
 
   const handleChangePaymentFormData = (event) => {
     const { name, value } = event.target;
     setPaymentFormData({ ...paymentFormData, [name]: value });
   };
+
   const handleChangeAddressFormData = (event) => {
     const { name, value } = event.target;
     if (name === "country") {
@@ -65,17 +69,27 @@ export default function Checkout({ products }) {
     }
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleChangePaymentCheckBox = (event) => {
+    const { checked } = event.target;
+    setPaymentFormData({ ...paymentFormData, saveCard: checked });
   };
 
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
+  const handleChangeAddressCheckBox = (event) => {
+    const { checked } = event.target;
+    setAddressFormData({ ...addressFormData, saveAddress: checked });
   };
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+  const handleNext = () => {
+    setActiveStep(activeStep + 1);
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleNext();
+  };
+
   const currentFormData = { ...addressFormData, ...paymentFormData };
 
   function getStepContent() {
@@ -84,7 +98,8 @@ export default function Checkout({ products }) {
         return (
           <AddressForm
             formData={addressFormData}
-            onChange={handleChangeAddressFormData}
+            handleChange={handleChangeAddressFormData}
+            handleChangeAddressCheckBox={handleChangeAddressCheckBox}
           />
         );
       case 1:
@@ -92,6 +107,7 @@ export default function Checkout({ products }) {
           <PaymentForm
             formData={paymentFormData}
             onChange={handleChangePaymentFormData}
+            handleChangePaymentCheckBox={handleChangePaymentCheckBox}
           />
         );
       case 2:
@@ -104,8 +120,8 @@ export default function Checkout({ products }) {
   return (
     <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
       <Paper
-        component="form"
         onSubmit={handleSubmit}
+        component="form"
         variant="outlined"
         sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
       >
@@ -133,13 +149,7 @@ export default function Checkout({ products }) {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {getStepContent(
-                activeStep,
-                addressFormData,
-                paymentFormData,
-                handleChangeAddressFormData,
-                handleChangePaymentFormData
-              )}
+              {getStepContent()}
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
@@ -150,9 +160,8 @@ export default function Checkout({ products }) {
                 <Button
                   variant="contained"
                   type="submit"
-                  onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}
-                  disabled={checkValidation(activeStep, currentFormData)}
+                  disabled={!checkValidation(activeStep, currentFormData)}
                 >
                   {activeStep === steps.length - 1 ? "Place order" : "Next"}
                 </Button>
