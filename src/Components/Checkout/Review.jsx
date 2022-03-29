@@ -5,36 +5,18 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
 
-const products = [
-  {
-    name: "Product 1",
-    desc: "A nice thing",
-    price: "$9.99",
-  },
-  {
-    name: "Product 2",
-    desc: "Another thing",
-    price: "$3.45",
-  },
-  {
-    name: "Product 3",
-    desc: "Something else",
-    price: "$6.51",
-  },
-  {
-    name: "Product 4",
-    desc: "Best thing of all",
-    price: "$14.11",
-  },
-  { name: "Shipping", desc: "", price: "Free" },
-];
-
 const formatCardNumber = (cardNumber) => {
   const last4Digits = cardNumber.slice(-4);
   return ` XXXX-XXXX-XXXX-${last4Digits}`;
 };
+const totalPrice = (products) => {
+  return products.reduce((acc, product) => {
+    console.log(product.price);
+    return acc + product.price;
+  }, 0);
+};
 
-export default function Review({ formData }) {
+export default function Review({ formData, products }) {
   const fullAddress = `${formData.address1}, ${formData.city}, ${formData.state} ${formData.zip} ${formData.country}`;
 
   const payments = [
