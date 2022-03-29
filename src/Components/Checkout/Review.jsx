@@ -29,12 +29,13 @@ const products = [
   { name: "Shipping", desc: "", price: "Free" },
 ];
 
+const formatCardNumber = (cardNumber) => {
+  const last4Digits = cardNumber.slice(-4);
+  return ` XXXX-XXXX-XXXX-${last4Digits}`;
+};
+
 export default function Review({ formData }) {
   const fullAddress = `${formData.address1}, ${formData.city}, ${formData.state} ${formData.zip} ${formData.country}`;
-  const formatCardNumber = (cardNumber) => {
-    const last4Digits = cardNumber.slice(-4);
-    return ` XXXX-XXXX-XXXX-${last4Digits}`;
-  };
 
   const payments = [
     { name: "Card type", detail: "Visa" },
@@ -42,6 +43,7 @@ export default function Review({ formData }) {
     { name: "Card number", detail: formatCardNumber(formData.cardNumber) },
     { name: "Expiry date", detail: formData.expDate },
   ];
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>

@@ -49,6 +49,8 @@ export default function Checkout() {
     country: "",
     state: "",
     firstName: "",
+    saveAddress: false,
+    saveCard: false,
   });
 
   const [paymentFormData, setPaymentFormData] = React.useState({});
