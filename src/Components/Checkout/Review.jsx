@@ -4,16 +4,18 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
+import { formatCurrency } from "../../utils/formatCurrency";
+
+const INITIAL_PRICE = 0;
 
 const formatCardNumber = (cardNumber) => {
   const last4Digits = cardNumber.slice(-4);
   return ` XXXX-XXXX-XXXX-${last4Digits}`;
 };
-const totalPrice = (products) => {
+const getTotalPrice = (products) => {
   return products.reduce((acc, product) => {
-    console.log(product.price);
     return acc + product.price;
-  }, 0);
+  }, INITIAL_PRICE);
 };
 
 export default function Review({ formData, products }) {
@@ -36,8 +38,7 @@ export default function Review({ formData, products }) {
           <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
             <ListItemText primary={product.name} />
             <Typography variant="body2">
-              {product.description}
-              {product.price.toFixed(2)}
+              {formatCurrency(product.price, "BRL")}
             </Typography>
           </ListItem>
         ))}
@@ -45,7 +46,7 @@ export default function Review({ formData, products }) {
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            {`R$ ${totalPrice(products).toFixed(2)}`}
+            {formatCurrency(getTotalPrice(products), "BRL")}
           </Typography>
         </ListItem>
       </List>
@@ -55,8 +56,7 @@ export default function Review({ formData, products }) {
             Shipping
           </Typography>
           <Typography gutterBottom>
-            {formData.firstName}
-            {formData.lastName}
+            {`${formData.firstName} ${formData.lastName}`}
           </Typography>
           <Typography gutterBottom>{fullAddress}</Typography>
         </Grid>

@@ -12,19 +12,16 @@ const initialProducts = [
   {
     id: 1,
     name: "Caneta",
-    description: "R$",
     price: 2.0,
   },
   {
     id: 2,
     name: "Pacote folha sulfite",
-    description: "R$",
     price: 10.0,
   },
   {
     id: 3,
     name: "Lápis",
-    description: "R$",
     price: 0.5,
   },
 ];
