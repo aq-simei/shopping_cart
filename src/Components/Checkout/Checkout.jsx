@@ -74,7 +74,7 @@ export default function Checkout() {
     setPaymentFormData({ ...paymentFormData, saveCard: checked });
   };
 
-  const onChangeAddressCheckBox = (event) => {
+  const handleChangeAddressCheckBox = (event) => {
     const { checked } = event.target;
     setAddressFormData({ ...addressFormData, saveAddress: checked });
   };
@@ -96,7 +96,7 @@ export default function Checkout() {
           <AddressForm
             formData={addressFormData}
             onChange={handleChangeAddressFormData}
-            onChangeAddressCheckBox={onChangeAddressCheckBox}
+            handleChangeAddressCheckBox={handleChangeAddressCheckBox}
           />
         );
       case 1:
