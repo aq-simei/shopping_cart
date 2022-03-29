@@ -42,7 +42,9 @@ const checkValidation = (step, formData) => {
       return true;
   }
 };
-
+const handleSubmit = (event) => {
+  event.preventDefault();
+};
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [addressFormData, setAddressFormData] = React.useState({
@@ -117,6 +119,7 @@ export default function Checkout() {
   return (
     <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
       <Paper
+        component="form"
         variant="outlined"
         sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
       >
@@ -154,7 +157,9 @@ export default function Checkout() {
 
                 <Button
                   variant="contained"
+                  type="submit"
                   onClick={handleNext}
+                  onSubmit={handleSubmit}
                   sx={{ mt: 3, ml: 1 }}
                   disabled={!checkValidation(activeStep, currentFormData)}
                 >
