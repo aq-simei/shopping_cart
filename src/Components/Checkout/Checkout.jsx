@@ -14,21 +14,21 @@ import Review from "./Review";
 const steps = ["Shipping address", "Payment details", "Review your order"];
 
 const addressFormValidation = (formData) => {
-  return !(
+  return Boolean(
     formData?.firstName &&
-    formData?.address1 &&
-    formData?.zip &&
-    formData?.city &&
-    formData?.country &&
-    formData?.state
+      formData?.address1 &&
+      formData?.zip &&
+      formData?.city &&
+      formData?.country &&
+      formData?.state
   );
 };
 const paymentFormValidation = (formData) => {
-  return !(
+  return Boolean(
     formData?.cardName &&
-    formData?.cardNumber &&
-    formData?.cvv &&
-    formData?.expDate
+      formData?.cardNumber &&
+      formData?.cvv &&
+      formData?.expDate
   );
 };
 
@@ -52,6 +52,10 @@ export default function Checkout() {
   });
   const [paymentFormData, setPaymentFormData] = React.useState({});
 
+  const handleChangePaymentCheckBox = ({ target: { checked } }) => {
+    setPaymentFormData({ ...paymentFormData, saveCard: checked });
+  };
+
   const handleChangePaymentFormData = (event) => {
     const { name, value } = event.target;
     setPaymentFormData({ ...paymentFormData, [name]: value });
@@ -63,6 +67,9 @@ export default function Checkout() {
     } else {
       setAddressFormData({ ...addressFormData, [name]: value });
     }
+  };
+  const handleChangeAddressCheckBox = ({ target: { checked } }) => {
+    setAddressFormData({ ...addressFormData, save: checked });
   };
 
   const handleNext = () => {
@@ -81,6 +88,7 @@ export default function Checkout() {
           <AddressForm
             formData={addressFormData}
             onChange={handleChangeAddressFormData}
+            handleChangeAddressCheckBox={handleChangeAddressCheckBox}
           />
         );
       case 1:
@@ -88,6 +96,7 @@ export default function Checkout() {
           <PaymentForm
             formData={paymentFormData}
             onChange={handleChangePaymentFormData}
+            handleChangePaymentCheckBox={handleChangePaymentCheckBox}
           />
         );
       case 2:
@@ -139,7 +148,7 @@ export default function Checkout() {
                   variant="contained"
                   onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}
-                  disabled={checkValidation(activeStep, currentFormData)}
+                  disabled={!checkValidation(activeStep, currentFormData)}
                 >
                   {activeStep === steps.length - 1 ? "Place order" : "Next"}
                 </Button>

@@ -7,7 +7,12 @@ import Checkbox from "@mui/material/Checkbox";
 import CountrySelector from "./CountrySelector";
 import StateSelector from "./StateSelector";
 
-export default function AddressForm({ formData, onChange }) {
+export default function AddressForm({
+  formData,
+  onChange,
+  handleChangeAddressCheckBox,
+  checked,
+}) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -107,7 +112,12 @@ export default function AddressForm({ formData, onChange }) {
         <Grid item xs={12}>
           <FormControlLabel
             control={
-              <Checkbox color="secondary" name="saveAddress" value="yes" />
+              <Checkbox
+                color="secondary"
+                name="saveAddress"
+                checked={formData.save}
+                onChange={handleChangeAddressCheckBox}
+              />
             }
             label="Use this address for payment details"
           />

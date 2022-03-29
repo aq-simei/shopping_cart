@@ -33,16 +33,14 @@ export default function Review({ formData }) {
   const fullAddress = `${formData.address1}, ${formData.city}, ${formData.state} ${formData.zip} ${formData.country}`;
   const formatCardNumber = (cardNumber) => {
     const last4Digits = cardNumber.slice(-4);
-    return ` **** **** **** ${last4Digits}`;
+    return ` XXXX-XXXX-XXXX-${last4Digits}`;
   };
-
-  const formatDate = (expDate) => `${expDate.slice(0, 2)}/${expDate.slice(-2)}`;
 
   const payments = [
     { name: "Card type", detail: "Visa" },
     { name: "Card holder", detail: formData.cardName },
     { name: "Card number", detail: formatCardNumber(formData.cardNumber) },
-    { name: "Expiry date", detail: `${formatDate(formData.expDate)}` },
+    { name: "Expiry date", detail: formData.expDate },
   ];
   return (
     <React.Fragment>
