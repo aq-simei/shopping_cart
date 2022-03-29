@@ -4,37 +4,21 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
+import { formatCurrency } from "../../utils/formatCurrency";
 
-const products = [
-  {
-    name: "Product 1",
-    desc: "A nice thing",
-    price: "$9.99",
-  },
-  {
-    name: "Product 2",
-    desc: "Another thing",
-    price: "$3.45",
-  },
-  {
-    name: "Product 3",
-    desc: "Something else",
-    price: "$6.51",
-  },
-  {
-    name: "Product 4",
-    desc: "Best thing of all",
-    price: "$14.11",
-  },
-  { name: "Shipping", desc: "", price: "Free" },
-];
+const INITIAL_PRICE = 0;
 
 const formatCardNumber = (cardNumber) => {
   const last4Digits = cardNumber.slice(-4);
   return ` XXXX-XXXX-XXXX-${last4Digits}`;
 };
+const getTotalPrice = (products) => {
+  return products.reduce((acc, product) => {
+    return acc + product.price;
+  }, INITIAL_PRICE);
+};
 
-export default function Review({ formData }) {
+export default function Review({ formData, products }) {
   const fullAddress = `${formData.address1}, ${formData.city}, ${formData.state} ${formData.zip} ${formData.country}`;
 
   const payments = [
@@ -52,15 +36,17 @@ export default function Review({ formData }) {
       <List disablePadding>
         {products.map((product) => (
           <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
-            <ListItemText primary={product.name} secondary={product.desc} />
-            <Typography variant="body2">{product.price}</Typography>
+            <ListItemText primary={product.name} />
+            <Typography variant="body2">
+              {formatCurrency(product.price, "BRL")}
+            </Typography>
           </ListItem>
         ))}
 
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            $34.06
+            {formatCurrency(getTotalPrice(products), "BRL")}
           </Typography>
         </ListItem>
       </List>
@@ -70,8 +56,7 @@ export default function Review({ formData }) {
             Shipping
           </Typography>
           <Typography gutterBottom>
-            {formData.firstName}
-            {formData.lastName}
+            {`${formData.firstName} ${formData.lastName}`}
           </Typography>
           <Typography gutterBottom>{fullAddress}</Typography>
         </Grid>

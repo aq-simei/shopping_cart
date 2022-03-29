@@ -17,7 +17,7 @@ const fillOutPaymentForm = () => {
 };
 describe("Checkout component", () => {
   beforeEach(() => {
-    render(<Checkout />);
+    render(<Checkout {...cartItemsProps} />);
     const firstNameInput = screen.getByRole("textbox", {
       name: /first name/i,
     });
@@ -39,6 +39,20 @@ describe("Checkout component", () => {
 
     userEvent.type(cityInput, "Anytown");
   });
+  const cartItemsProps = {
+    products: [
+      {
+        id: 1,
+        name: "AddedToCartTestName",
+        price: 10.0,
+      },
+      {
+        id: 2,
+        name: "AddedToCartTestName2",
+        price: 20.0,
+      },
+    ],
+  };
   it("Renders the shipping address form by default", () => {
     const shippingAddressHeading = screen.getByRole("heading", {
       name: "Shipping address",

@@ -43,7 +43,7 @@ const checkValidation = (step, formData) => {
   }
 };
 
-export default function Checkout() {
+export default function Checkout({ products }) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [addressFormData, setAddressFormData] = React.useState({
     country: "",
@@ -111,7 +111,7 @@ export default function Checkout() {
           />
         );
       case 2:
-        return <Review formData={currentFormData} />;
+        return <Review formData={currentFormData} products={products} />;
       default:
         throw new Error("Unknown step");
     }

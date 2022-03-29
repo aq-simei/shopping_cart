@@ -12,17 +12,17 @@ const initialProducts = [
   {
     id: 1,
     name: "Caneta",
-    description: "R$2,00",
+    price: 2.0,
   },
   {
     id: 2,
     name: "Pacote folha sulfite",
-    description: "R$10,00",
+    price: 10.0,
   },
   {
     id: 3,
     name: "Lápis",
-    description: "R$0,50",
+    price: 0.5,
   },
 ];
 
@@ -64,7 +64,9 @@ export function Store() {
         onClick={() => setShowComponents(RENDER_CHECKOUT_STATE_KEY)}
       />
 
-      {showComponents === RENDER_CHECKOUT_STATE_KEY && <Checkout />}
+      {showComponents === RENDER_CHECKOUT_STATE_KEY && (
+        <Checkout products={cartItems} />
+      )}
 
       {showComponents === RENDER_PRODUCTS_STATE_KEY && (
         <ProductsList products={products} onAddToCart={handleAddItemToCart} />
