@@ -29,8 +29,6 @@ const products = [
   { name: "Shipping", desc: "", price: "Free" },
 ];
 
-const addresses = ["1 MUI Drive", "Reactville", "Anytown", "99999", "USA"];
-
 export default function Review({ formData }) {
   const fullAddress = `${formData.address1}, ${formData.city}, ${formData.state} ${formData.zip} ${formData.country}`;
   const formatCardNumber = (cardNumber) => {
@@ -38,11 +36,13 @@ export default function Review({ formData }) {
     return ` **** **** **** ${last4Digits}`;
   };
 
+  const formatDate = (expDate) => `${expDate.slice(0, 2)}/${expDate.slice(-2)}`;
+
   const payments = [
     { name: "Card type", detail: "Visa" },
     { name: "Card holder", detail: formData.cardName },
     { name: "Card number", detail: formatCardNumber(formData.cardNumber) },
-    { name: "Expiry date", detail: "04/2024" },
+    { name: "Expiry date", detail: `${formatDate(formData.expDate)}` },
   ];
   return (
     <React.Fragment>
