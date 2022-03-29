@@ -13,21 +13,71 @@ import Review from "./Review";
 
 const steps = ["Shipping address", "Payment details", "Review your order"];
 
-function getStepContent(step) {
+const addressFormValidation = (formData) => {
+  return Boolean(
+    formData?.firstName &&
+      formData?.address1 &&
+      formData?.zip &&
+      formData?.city &&
+      formData?.country &&
+      formData?.state
+  );
+};
+const paymentFormValidation = (formData) => {
+  return Boolean(
+    formData?.cardName &&
+      formData?.cardNumber &&
+      formData?.cvv &&
+      formData?.expDate
+  );
+};
+
+const checkValidation = (step, formData) => {
   switch (step) {
     case 0:
-      return <AddressForm />;
+      return addressFormValidation(formData);
     case 1:
-      return <PaymentForm />;
+      return paymentFormValidation(formData);
     case 2:
-      return <Review />;
-    default:
-      throw new Error("Unknown step");
+      return true;
   }
-}
+};
 
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
+  const [addressFormData, setAddressFormData] = React.useState({
+    country: "",
+    state: "",
+    firstName: "",
+    saveAddress: false,
+    saveCard: false,
+  });
+
+  const [paymentFormData, setPaymentFormData] = React.useState({});
+
+  const handleChangePaymentFormData = (event) => {
+    const { name, value } = event.target;
+    setPaymentFormData({ ...paymentFormData, [name]: value });
+  };
+
+  const handleChangeAddressFormData = (event) => {
+    const { name, value } = event.target;
+    if (name === "country") {
+      setAddressFormData({ ...addressFormData, state: "", country: value });
+    } else {
+      setAddressFormData({ ...addressFormData, [name]: value });
+    }
+  };
+
+  const handleChangePaymentCheckBox = (event) => {
+    const { checked } = event.target;
+    setPaymentFormData({ ...paymentFormData, saveCard: checked });
+  };
+
+  const handleChangeAddressCheckBox = (event) => {
+    const { checked } = event.target;
+    setAddressFormData({ ...addressFormData, saveAddress: checked });
+  };
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -36,6 +86,33 @@ export default function Checkout() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  const currentFormData = { ...addressFormData, ...paymentFormData };
+
+  function getStepContent() {
+    switch (activeStep) {
+      case 0:
+        return (
+          <AddressForm
+            formData={addressFormData}
+            onChange={handleChangeAddressFormData}
+            handleChangeAddressCheckBox={handleChangeAddressCheckBox}
+          />
+        );
+      case 1:
+        return (
+          <PaymentForm
+            formData={paymentFormData}
+            onChange={handleChangePaymentFormData}
+            handleChangePaymentCheckBox={handleChangePaymentCheckBox}
+          />
+        );
+      case 2:
+        return <Review formData={currentFormData} />;
+      default:
+        throw new Error("Unknown step");
+    }
+  }
 
   return (
     <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
@@ -67,7 +144,7 @@ export default function Checkout() {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {getStepContent(activeStep)}
+              {getStepContent()}
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
@@ -79,6 +156,7 @@ export default function Checkout() {
                   variant="contained"
                   onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}
+                  disabled={!checkValidation(activeStep, currentFormData)}
                 >
                   {activeStep === steps.length - 1 ? "Place order" : "Next"}
                 </Button>

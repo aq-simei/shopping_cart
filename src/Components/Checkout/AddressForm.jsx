@@ -7,19 +7,11 @@ import Checkbox from "@mui/material/Checkbox";
 import CountrySelector from "./CountrySelector";
 import StateSelector from "./StateSelector";
 
-export default function AddressForm() {
-  const [currentCountry, setCurrentCountry] = React.useState("");
-  const [currentState, setCurrentState] = React.useState("");
-
-  const handleChangeCurrentCountry = (event) => {
-    setCurrentCountry(event.target.value || "");
-    setCurrentState("");
-  };
-
-  const handleChangeCurrentState = (event) => {
-    setCurrentState(event.target.value || "");
-  };
-
+export default function AddressForm({
+  formData,
+  onChange,
+  handleChangeAddressCheckBox,
+}) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -31,21 +23,24 @@ export default function AddressForm() {
             required
             id="firstName"
             name="firstName"
+            value={formData.firstName}
             label="First name"
             fullWidth
             autoComplete="given-name"
             variant="standard"
+            onChange={onChange}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            required
             id="lastName"
             name="lastName"
             label="Last name"
+            value={formData.lastName || ""}
             fullWidth
             autoComplete="family-name"
             variant="standard"
+            onChange={onChange}
           />
         </Grid>
         <Grid item xs={12}>
@@ -53,20 +48,24 @@ export default function AddressForm() {
             required
             id="address1"
             name="address1"
+            value={formData.address1 || ""}
             label="Address line 1"
             fullWidth
             autoComplete="shipping address-line1"
             variant="standard"
+            onChange={onChange}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             id="address2"
             name="address2"
+            value={formData.address2 || ""}
             label="Address line 2"
             fullWidth
             autoComplete="shipping address-line2"
             variant="standard"
+            onChange={onChange}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -74,10 +73,12 @@ export default function AddressForm() {
             required
             id="zip"
             name="zip"
+            value={formData.zip || ""}
             label="Zip / Postal code"
             fullWidth
             autoComplete="shipping postal-code"
             variant="standard"
+            onChange={onChange}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -85,37 +86,37 @@ export default function AddressForm() {
             required
             id="city"
             name="city"
+            value={formData.city || ""}
             label="City"
             fullWidth
             autoComplete="shipping address-level2"
             variant="standard"
+            onChange={onChange}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <CountrySelector
-            currentCountry={currentCountry}
-            onChangeCurrentCountry={handleChangeCurrentCountry}
-            required
-            id="country"
-            name="country"
-            label="Country"
-            fullWidth
-            autoComplete="shipping country"
-            variant="standard"
+            currentCountry={formData.country}
+            onChangeCurrentCountry={onChange}
           />
         </Grid>
 
         <Grid item xs={12} sm={6}>
           <StateSelector
-            currentCountry={currentCountry}
-            currentState={currentState}
-            onChangeCurrentState={handleChangeCurrentState}
+            currentCountry={formData.country}
+            currentState={formData.state}
+            onChangeCurrentState={onChange}
           />
         </Grid>
         <Grid item xs={12}>
           <FormControlLabel
             control={
-              <Checkbox color="secondary" name="saveAddress" value="yes" />
+              <Checkbox
+                color="secondary"
+                name="saveAddress"
+                checked={formData.saveAddress}
+                onChange={handleChangeAddressCheckBox}
+              />
             }
             label="Use this address for payment details"
           />

@@ -29,15 +29,21 @@ const products = [
   { name: "Shipping", desc: "", price: "Free" },
 ];
 
-const addresses = ["1 MUI Drive", "Reactville", "Anytown", "99999", "USA"];
-const payments = [
-  { name: "Card type", detail: "Visa" },
-  { name: "Card holder", detail: "Mr John Smith" },
-  { name: "Card number", detail: "xxxx-xxxx-xxxx-1234" },
-  { name: "Expiry date", detail: "04/2024" },
-];
+const formatCardNumber = (cardNumber) => {
+  const last4Digits = cardNumber.slice(-4);
+  return ` XXXX-XXXX-XXXX-${last4Digits}`;
+};
 
-export default function Review() {
+export default function Review({ formData }) {
+  const fullAddress = `${formData.address1}, ${formData.city}, ${formData.state} ${formData.zip} ${formData.country}`;
+
+  const payments = [
+    { name: "Card type", detail: "Visa" },
+    { name: "Card holder", detail: formData.cardName },
+    { name: "Card number", detail: formatCardNumber(formData.cardNumber) },
+    { name: "Expiry date", detail: formData.expDate },
+  ];
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -63,8 +69,11 @@ export default function Review() {
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
             Shipping
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
-          <Typography gutterBottom>{addresses.join(", ")}</Typography>
+          <Typography gutterBottom>
+            {formData.firstName}
+            {formData.lastName}
+          </Typography>
+          <Typography gutterBottom>{fullAddress}</Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
