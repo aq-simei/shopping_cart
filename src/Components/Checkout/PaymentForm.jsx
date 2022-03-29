@@ -5,7 +5,11 @@ import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
-export default function PaymentForm({ formData, onChange }) {
+export default function PaymentForm({
+  formData,
+  onChange,
+  handleChangePaymentCheckBox,
+}) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -67,6 +71,8 @@ export default function PaymentForm({ formData, onChange }) {
         </Grid>
         <Grid item xs={12}>
           <FormControlLabel
+            checked={formData.saveCard || false}
+            onChange={handleChangePaymentCheckBox}
             control={<Checkbox color="secondary" name="saveCard" value="yes" />}
             label="Remember credit card details for next time"
           />
