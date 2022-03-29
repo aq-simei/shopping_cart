@@ -87,6 +87,7 @@ export default function Checkout() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+    handleNext();
   };
 
   const currentFormData = { ...addressFormData, ...paymentFormData };
@@ -159,7 +160,6 @@ export default function Checkout() {
                 <Button
                   variant="contained"
                   type="submit"
-                  onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}
                   disabled={!checkValidation(activeStep, currentFormData)}
                 >
