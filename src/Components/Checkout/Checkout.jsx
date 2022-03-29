@@ -39,7 +39,7 @@ const checkValidation = (step, formData) => {
     case 1:
       return paymentFormValidation(formData);
     case 2:
-      return;
+      return true;
   }
 };
 
@@ -69,7 +69,7 @@ export default function Checkout() {
     }
   };
 
-  const onChangePaymentCheckBox = (event) => {
+  const handleChangePaymentCheckBox = (event) => {
     const { checked } = event.target;
     setPaymentFormData({ ...paymentFormData, saveCard: checked });
   };
@@ -104,7 +104,7 @@ export default function Checkout() {
           <PaymentForm
             formData={paymentFormData}
             onChange={handleChangePaymentFormData}
-            onChangePaymentCheckBox={onChangePaymentCheckBox}
+            handleChangePaymentCheckBox={handleChangePaymentCheckBox}
           />
         );
       case 2:
