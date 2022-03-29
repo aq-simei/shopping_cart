@@ -114,7 +114,7 @@ export default function AddressForm({
               <Checkbox
                 color="secondary"
                 name="saveAddress"
-                checked={formData.save}
+                checked={formData.saveAddress}
                 onChange={onChangeAddressCheckBox}
               />
             }

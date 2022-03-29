@@ -50,11 +50,8 @@ export default function Checkout() {
     state: "",
     firstName: "",
   });
-  const [paymentFormData, setPaymentFormData] = React.useState({});
 
-  const onChangePaymentCheckBox = ({ target: { checked } }) => {
-    setPaymentFormData({ ...paymentFormData, saveCard: checked });
-  };
+  const [paymentFormData, setPaymentFormData] = React.useState({});
 
   const handleChangePaymentFormData = (event) => {
     const { name, value } = event.target;
@@ -70,8 +67,14 @@ export default function Checkout() {
     }
   };
 
-  const onChangeAddressCheckBox = ({ target: { checked } }) => {
-    setAddressFormData({ ...addressFormData, save: checked });
+  const onChangePaymentCheckBox = (event) => {
+    const { checked } = event.target;
+    setPaymentFormData({ ...paymentFormData, saveCard: checked });
+  };
+
+  const onChangeAddressCheckBox = (event) => {
+    const { checked } = event.target;
+    setAddressFormData({ ...addressFormData, saveAddress: checked });
   };
 
   const handleNext = () => {
