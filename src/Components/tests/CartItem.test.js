@@ -7,7 +7,7 @@ describe("<CartItem />", () => {
     product: {
       id: 1,
       name: "AddedToCartTestName",
-      description: "AddedToCartDescription",
+      price: 10.0,
     },
     onRemoveItemFromCart: () => {},
   };
@@ -19,7 +19,7 @@ describe("<CartItem />", () => {
   it("should render the cart item's description", () => {
     render(<CartItem {...props} />);
 
-    expect(screen.getByText(/addedtocartdescription/i)).toBeInTheDocument();
+    expect(screen.getByText(/10.00/i)).toBeInTheDocument();
   });
   it("should render the delete button", () => {
     render(<CartItem {...props} />);

@@ -7,7 +7,7 @@ describe("<Product />", () => {
     product: {
       id: 1,
       name: "TestName",
-      description: "TestDescription",
+      price: 10.0,
     },
     onAddToCart: () => {},
   };
@@ -19,7 +19,7 @@ describe("<Product />", () => {
   });
   it("should render the product's description", () => {
     render(<Product {...props} />);
-    expect(screen.getByText(/testdescription/i)).toBeInTheDocument();
+    expect(screen.getByText(/10/i)).toBeInTheDocument();
   });
 
   it("should render a addToCart button", () => {
