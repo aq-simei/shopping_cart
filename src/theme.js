@@ -10,6 +10,7 @@ const backGroundColors = {
   white: "#fff",
   black: "#262626",
   grey: "#999999",
+  mid_blue: "#255c99",
 };
 const fonts = { body: "Roboto, sans-serif" };
 
