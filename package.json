@@ -6,6 +6,7 @@
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
     "@mui/material": "^5.5.2",
+    "@styled-system/css": "^5.1.5",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -13,12 +14,13 @@
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
     "styled-components": "^5.3.5",
+    "styled-system": "^5.1.5",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --maxWorkers=50%",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --maxWorkers=50%",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
