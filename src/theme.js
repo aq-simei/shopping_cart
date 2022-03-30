@@ -12,10 +12,21 @@ const backGroundColors = {
   grey: "#999999",
 };
 const fonts = { body: "Roboto, sans-serif" };
-
-const fontSize = [
-  0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3,
-].map((v) => `${v}rem`);
+const sizeScale = [
+  "0rem",
+  "0.25rem",
+  "0.5rem",
+  "0.75rem",
+  "1rem",
+  "1.25rem",
+  "1.5rem",
+  "1.75rem",
+  "2rem",
+  "2.25rem",
+  "2.5rem",
+  "2.75rem",
+  "3rem",
+];
 
 const fontWeights = [300, 400, 500, 600, 700, 800];
 
@@ -23,6 +34,6 @@ export const theme = {
   colors,
   backGroundColors,
   fonts,
-  fontSize,
+  sizeScale,
   fontWeights,
 };

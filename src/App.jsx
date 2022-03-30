@@ -10,7 +10,7 @@ export function App() {
       <CssBaseline />
       <Store />
       <Card>
-        <p>Esse é o teste com a função css</p>
+        <p>This is a styled-component implemented with css function</p>
       </Card>
     </ThemeProvider>
   );
@@ -21,6 +21,8 @@ const Card = (props) => (
     css={css({
       background: `${theme.colors.black}`,
       color: `${theme.colors.white}`,
+      padding: [`${theme.sizeScale[1]}`, `${theme.sizeScale[2]}`],
+      fontSize: `${theme.sizeScale[4]}`,
     })}
   />
 );
