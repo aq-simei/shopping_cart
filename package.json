@@ -17,10 +17,10 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --maxWorkers=50%",
-    "eject": "react-scripts eject"
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --maxWorkers=50%",
+    "eject": "react-app-rewired eject"
   },
   "eslintConfig": {
     "extends": [
