@@ -1,10 +1,9 @@
 import { CssBaseline } from "@mui/material";
-import { ThemeProvider } from "@mui/system";
+import { ThemeProvider } from "styled-components";
 import { Store } from "./Components/Store";
-import { createTheme } from "@mui/material/styles";
+import { theme } from "./theme";
 
 export function App() {
-  const theme = createTheme();
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
